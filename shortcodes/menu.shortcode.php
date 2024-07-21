@@ -6,6 +6,8 @@ function menus_shortcode($atts, $content = null)
     'class' => '',
     'id' => '',
   ), $atts);
+  // load css
+  wp_enqueue_style('restaurant-menu', plugin_dir_url(__FILE__) . './styles/menu.css');
   $class = $attributes['class'] ? ' class="' . esc_attr($attributes['class']) . '"' : '';
   $id = $attributes['id'] ? ' id="' . esc_attr($attributes['id']) . '"' : '';
   $menu_items = get_option('restaurant_menu_items', array());
@@ -28,11 +30,3 @@ function menus_shortcode($atts, $content = null)
 }
 
 add_shortcode('restaurantmenu', 'menus_shortcode');
-
-// load css file
-function enqueue_shortcode_styles()
-{
-  wp_enqueue_style('shortcode-styles', plugin_dir_url(__FILE__) . './styles/menu.css');
-}
-
-add_action('wp_enqueue_scripts', 'enqueue_shortcode_styles');
