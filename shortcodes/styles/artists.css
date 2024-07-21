@@ -1,9 +1,13 @@
+.u-content-background.u-content-top-spacing.u-content-bottom-spacing {
+  background: black;
+}
 #artists {
   outline: none;
   display: flex;
   flex-direction: column;
   gap: 15px;
   width: 100%;
+  padding-left: 0;
 }
 
 #artists .artistWrapper {
@@ -56,6 +60,27 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+@media (max-width: 650px) {
+  #artists .artist {
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+  #artists .artist .artistPicture {
+    width: 180px;
+    height: 180px;
+  }
+  #artists .artist .artistInfo {
+    gap: 0px;
+  }
+  #artists .artist .artistLinks {
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+  }
 }
 
 #artists .artist .artistLinks a {
