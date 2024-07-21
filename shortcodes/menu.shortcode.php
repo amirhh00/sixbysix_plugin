@@ -29,4 +29,4 @@ function menus_shortcode($atts, $content = null)
   return $output;
 }
 
-add_shortcode('restaurantmenu', 'menus_shortcode');
+add_shortcode('rmenu', 'menus_shortcode');

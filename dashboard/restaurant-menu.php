@@ -1,29 +1,4 @@
 <?php
-// Add menu item to the dashboard
-function sixonesix_add_admin_menu()
-{
-  add_menu_page(
-    'SixOneSix Settings',
-    'SixOneSix',
-    'manage_options',
-    'sixonesix-settings',
-    'sixonesix_settings_page',
-    'dashicons-admin-site',
-    20
-  );
-}
-add_action('admin_menu', 'sixonesix_add_admin_menu');
-
-function sixonesix_settings_page()
-{
-?>
-  <div class="wrap">
-    <h1>SixOneSix Settings</h1>
-    <p>Welcome to the SixOneSix settings page.</p>
-  </div>
-<?php
-}
-
 function restaurant_menu_add_admin_menu()
 {
   add_submenu_page(
@@ -94,11 +69,11 @@ function restaurant_menu_items_field_callback()
         <input type="text" name="restaurant_menu_items[<?php echo $index; ?>][days]" value="<?php echo esc_attr($item['days']); ?>" placeholder="Days Available">
         <input type="text" name="restaurant_menu_items[<?php echo $index; ?>][time]" value="<?php echo esc_attr($item['time']); ?>" placeholder="Time Available">
         <input type="text" name="restaurant_menu_items[<?php echo $index; ?>][link]" value="<?php echo esc_attr($item['link']); ?>" placeholder="Link">
-        <button type="button" class="remove-item">Remove</button>
+        <button type="button" class="button remove-item">Remove</button>
       </div>
     <?php endforeach; ?>
   </div>
-  <button type="button" id="add-item">Add Item</button>
+  <button type="button" class="button" id="add-item">Add Item</button>
 
   <script>
     jQuery(document).ready(function($) {
@@ -110,7 +85,7 @@ function restaurant_menu_items_field_callback()
           '<input type="text" name="restaurant_menu_items[' + index + '][days]" placeholder="Days Available">' +
           '<input type="text" name="restaurant_menu_items[' + index + '][time]" placeholder="Time Available">' +
           '<input type="text" name="restaurant_menu_items[' + index + '][link]" placeholder="Link">' +
-          '<button type="button" class="remove-item">Remove</button>' +
+          '<button type="button" class="button remove-item">Remove</button>' +
           '</div>';
         $('#menu-items').append(newItem);
         index++;

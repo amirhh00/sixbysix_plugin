@@ -1,0 +1,65 @@
+#artists {
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+#artists .artistWrapper {
+  background: #c7b373;
+}
+
+#artists .artist {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: black;
+  color: white;
+  list-style-type: none;
+  gap: 30px;
+  border-radius: 32px;
+  margin: 3px;
+}
+
+#artists .artist .artistPicture {
+  width: 150px;
+  height: 150px;
+}
+
+#artists .artist .artistInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  justify-content: space-between;
+}
+
+#artists .artist .artistInfo p {
+  margin: 0;
+  padding: 0;
+}
+
+#artists .artist .artistInfo * {
+  color: white;
+}
+
+#artists .artist .artistInfo .artistName {
+  font-size: 1.5em;
+  font-weight: 700;
+  text-transform: capitalize;
+  margin-top: 10px;
+}
+
+#artists .artist .artistLinks {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#artists .artist .artistLinks a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
