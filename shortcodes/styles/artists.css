@@ -25,6 +25,7 @@
 #artists .artist .artistPicture {
   width: 150px;
   height: 150px;
+  border: 2px solid #c7b373;
 }
 
 #artists .artist .artistInfo {
