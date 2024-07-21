@@ -86,7 +86,7 @@ function sixonesix_artist_name_cb()
     if (!empty($options['artists'])) {
       foreach ($options['artists'] as $index => $artist) {
     ?>
-        <div class="artist-entry">
+        <div style="margin: 30px 0;" class="artist-entry">
           <input type="text" placeholder="Artist Name" name="sixonesix_artist_options[artists][<?php echo $index; ?>][name]" value="<?php echo esc_attr($artist['name'] ?? ''); ?>" />
           <input type="text" placeholder="Instagram Link" name="sixonesix_artist_options[artists][<?php echo $index; ?>][instagram]" value="<?php echo esc_attr($artist['instagram'] ?? ''); ?>" />
           <input type="text" placeholder="Spotify Link" name="sixonesix_artist_options[artists][<?php echo $index; ?>][spotify]" value="<?php echo esc_attr($artist['spotify'] ?? ''); ?>" />
@@ -96,14 +96,14 @@ function sixonesix_artist_name_cb()
           <div class="image-preview"><?php if (!empty($artist['image'])) {
                                         echo '<img src="' . esc_url($artist['image']) . '" style="max-width: 100px; max-height: 100px;">';
                                       } ?></div>
-          <button type="button" onclick="removeArtistEntry(this)">Remove</button>
+          <button class="button action" type="button" onclick="removeArtistEntry(this)">Remove</button>
         </div>
     <?php
       }
     }
     ?>
   </div>
-  <button type="button" onclick="addArtistEntry()">Add Another Artist</button>
+  <button class="button action" style="margin: 10px 0;" type="button" onclick="addArtistEntry()">Add Another Artist</button>
   <script>
     function addArtistEntry() {
       var wrapper = document.getElementById('artists-wrapper');

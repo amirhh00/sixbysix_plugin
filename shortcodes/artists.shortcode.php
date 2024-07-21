@@ -42,7 +42,6 @@ function artists_shortcode($atts, $content = null)
     if ($artist['spotify']) {
       $output .= '<a href="' . esc_url($artist['spotify']) . '">' . '<img width="40" height="40" src="' . plugin_dir_url(__FILE__) . 'images/icon-spotify.svg" alt="Spotify icon">' . 'Listen Now' . '</a>';
     }
-    // $output .= '<a href="' . esc_url($artist['spotify']) . '">Listen Now</a>';
     $output .= '</div>';
     $output .= '</div>';
     $output .= '</li>';
