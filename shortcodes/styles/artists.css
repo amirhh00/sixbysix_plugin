@@ -1,5 +1,10 @@
-.u-content-background.u-content-top-spacing.u-content-bottom-spacing {
-  background: black;
+.u-content-background {
+  background-color: black;
+}
+
+.u-content-background .entry-title {
+  text-align: center;
+  color: white;
 }
 #artists {
   outline: none;
