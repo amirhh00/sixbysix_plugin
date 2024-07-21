@@ -34,13 +34,13 @@ function artists_shortcode($atts, $content = null)
     $output .= '<div class="artistLinks">';
 
     if ($artist['instagram']) {
-      $output .= '<a href="' . esc_url($artist['instagram']) . '">' . '<img width="40" height="40" style="scale:0.7" src="' . plugin_dir_url(__FILE__) . 'images/icon-instagram.svg" alt="Instagram icon">' .
+      $output .= '<a target="_blank" href="' . esc_url($artist['instagram']) . '">' . '<img width="40" height="40" style="scale:0.7" src="' . plugin_dir_url(__FILE__) . 'images/icon-instagram.svg" alt="Instagram icon">' .
         // external user tag from link using regex and put @ behind it e.g. https://www.instagram.com/jakeoneillvocal/
         preg_replace('/https:\/\/www.instagram.com\/([a-zA-Z0-9_]+)\/?/', '@$1', $artist['instagram'])
         . '</a>';
     }
     if ($artist['spotify']) {
-      $output .= '<a href="' . esc_url($artist['spotify']) . '">' . '<img width="40" height="40" src="' . plugin_dir_url(__FILE__) . 'images/icon-spotify.svg" alt="Spotify icon">' . 'Listen Now' . '</a>';
+      $output .= '<a target="_blank" href="' . esc_url($artist['spotify']) . '">' . '<img width="40" height="40" src="' . plugin_dir_url(__FILE__) . 'images/icon-spotify.svg" alt="Spotify icon">' . 'Listen Now' . '</a>';
     }
     $output .= '</div>';
     $output .= '</div>';

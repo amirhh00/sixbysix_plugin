@@ -10,17 +10,16 @@
 #sixbysixMenus {
   padding: 2rem 1rem 2rem 1rem;
   background-color: inherit;
-  color: white;
   margin: 0 auto;
 }
 
 #sixbysixMenus * {
-  color: white;
   margin: 0;
   margin-bottom: 0 !important;
   padding: 0;
   box-sizing: border-box;
   outline: none;
+  color: white;
 }
 
 #sixbysixMenus ul {
@@ -51,6 +50,7 @@
   gap: 0.5rem;
   text-align: center;
   transition: all 0.2s ease-in;
+  background-color: black;
 }
 
 #sixbysixMenus ul .menu-item div {
@@ -71,7 +71,9 @@
 #sixbysixMenus ul li.menu-item:hover {
   background-color: #c2b276;
   cursor: pointer;
-  & a:hover {
-    border-bottom: 2px solid white;
-  }
+  color: black !important;
+}
+
+#sixbysixMenus ul li.menu-item:hover * {
+  color: black !important;
 }
