@@ -35,6 +35,7 @@
   width: 150px;
   height: 150px;
   border: 2px solid #c7b373;
+  border-radius: 20px;
 }
 
 #artists .artist .artistInfo {
