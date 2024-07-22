@@ -1,6 +1,6 @@
 <?php
 
-function custom_button_shortcode($atts, $content = null)
+function custom_shortcode($atts, $content = null)
 {
   $attributes = shortcode_atts(array(
     'class' => '',
@@ -10,6 +10,6 @@ function custom_button_shortcode($atts, $content = null)
   $class = $attributes['class'] ? ' class="' . esc_attr($attributes['class']) . '"' : '';
   $id = $attributes['id'] ? ' id="' . esc_attr($attributes['id']) . '"' : '';
 
-  return '<button' . $class . $id . '>' . do_shortcode($content) . "test" . '</button>';
+  return '<div' . $class . $id . '>' . do_shortcode($content) . "test" . '</div>';
 }
-add_shortcode('button', 'custom_button_shortcode');
+add_shortcode('div', 'custom_shortcode');
