@@ -12,6 +12,7 @@
   transition: all 0.2s ease;
   text-decoration: none;
   outline: none;
+  z-index: 999;
 }
 
 #floating_booking:hover {
