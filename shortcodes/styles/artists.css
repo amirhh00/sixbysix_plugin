@@ -68,6 +68,10 @@
   gap: 10px;
 }
 
+#artists .artist .artistLinks:hover {
+  color: #c7b373;
+}
+
 @media (max-width: 650px) {
   #artists .artist {
     flex-direction: column;
