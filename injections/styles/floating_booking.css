@@ -1,0 +1,24 @@
+#floating_booking {
+  position: fixed;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  padding: 15px 20px;
+  z-index: 9;
+  color: black;
+  background: #c7b373;
+  border-radius: 40px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  outline: none;
+}
+
+#floating_booking:hover {
+  color: white;
+  background: #000;
+}
+
+footer.site-footer.u-footer-background.u-container-sides-spacing.full-width {
+  padding-bottom: 90px;
+}
