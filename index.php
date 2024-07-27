@@ -2,7 +2,7 @@
 /*
 Plugin Name: SixOneSix
 Description: Registers custom shortcodes and helper functions.
-Version: 1.1.14
+Version: 1.1.15
 Author: Amirhossein
 Plugin URI: https://github.com/amirhh00/sixbysix_plugin
 Author URI: https://github.com/amirhh00
@@ -13,7 +13,6 @@ GitHub Branch: main
 require_once plugin_dir_path(__FILE__) . 'shortcodes/index.php';
 require_once plugin_dir_path(__FILE__) . 'dashboard/index.php';
 require_once plugin_dir_path(__FILE__) . 'injections/index.php';
-
 
 function get_active_plugin_version()
 {
