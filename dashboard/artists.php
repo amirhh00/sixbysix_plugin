@@ -137,10 +137,10 @@ function sixonesix_artist_name_cb()
       foreach ($options['artists'] as $index => $artist) {
     ?>
         <div style="margin: 30px 0;" class="artist-entry">
-          <input type="text" placeholder="Artist Name" name="sixonesix_artist_options[artists][<?php echo $index; ?>][name]" value="<?php echo esc_attr($artist['name'] ?? ''); ?>" />
+          <input required type="text" placeholder="Artist Name" name="sixonesix_artist_options[artists][<?php echo $index; ?>][name]" value="<?php echo esc_attr($artist['name'] ?? ''); ?>" />
           <input type="text" placeholder="Instagram Link" name="sixonesix_artist_options[artists][<?php echo $index; ?>][instagram]" value="<?php echo esc_attr($artist['instagram'] ?? ''); ?>" />
           <input type="text" placeholder="Spotify Link" name="sixonesix_artist_options[artists][<?php echo $index; ?>][spotify]" value="<?php echo esc_attr($artist['spotify'] ?? ''); ?>" />
-          <input type="date" placeholder="Date" name="sixonesix_artist_options[artists][<?php echo $index; ?>][date]" value="<?php echo esc_attr($artist['date'] ?? ''); ?>" />
+          <input required type="date" placeholder="Date" name="sixonesix_artist_options[artists][<?php echo $index; ?>][date]" value="<?php echo esc_attr($artist['date'] ?? ''); ?>" />
           <button type="button" class="button select-image">Select Image</button>
           <input type="hidden" name="sixonesix_artist_options[artists][<?php echo $index; ?>][image]" class="image-data" value="<?php echo esc_attr($artist['image'] ?? ''); ?>" />
           <div class="image-preview"><?php if (!empty($artist['image'])) {
@@ -161,10 +161,10 @@ function sixonesix_artist_name_cb()
       var div = document.createElement("div");
       div.className = "artist-entry";
       div.innerHTML = `
-                <input type="text" placeholder="Artist Name" name="sixonesix_artist_options[artists][` + index + `][name]" />
+                <input required type="text" placeholder="Artist Name" name="sixonesix_artist_options[artists][` + index + `][name]" />
                 <input type="text" placeholder="Instagram Link" name="sixonesix_artist_options[artists][` + index + `][instagram]" />
                 <input type="text" placeholder="Spotify Link" name="sixonesix_artist_options[artists][` + index + `][spotify]" />
-                <input type="date" placeholder="Date" name="sixonesix_artist_options[artists][` + index + `][date]" />
+                <input required type="date" placeholder="Date" name="sixonesix_artist_options[artists][` + index + `][date]" />
                 <button type="button" class="button select-image">Select Image</button>
                 <input type="hidden" class="image-data" name="sixonesix_artist_options[artists][` + index + `][image]" />
                 <div class="image-preview"></div>

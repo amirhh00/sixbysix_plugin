@@ -13,3 +13,14 @@ GitHub Branch: main
 require_once plugin_dir_path(__FILE__) . 'shortcodes/index.php';
 require_once plugin_dir_path(__FILE__) . 'dashboard/index.php';
 require_once plugin_dir_path(__FILE__) . 'injections/index.php';
+
+
+function get_active_plugin_version()
+{
+  if (!function_exists('get_plugin_data')) {
+    require_once(ABSPATH . 'wp-admin/includes/plugin.php');
+  }
+  $pluginPath = plugin_dir_path(__FILE__) . 'index.php';
+  $plugin_data = get_plugin_data($pluginPath);
+  return $plugin_data['Version'];
+}

@@ -7,7 +7,10 @@ function artists_shortcode($atts, $content = null)
     'id' => '',
   ), $atts);
   $handle = 'sixonesix_artists';
-  wp_enqueue_style($handle, plugin_dir_url(__FILE__) . 'styles/artists.css');
+
+  $version = get_active_plugin_version();
+
+  wp_enqueue_style($handle, plugin_dir_url(__FILE__) . 'styles/artists.css', [], $version);
   $image_url = plugin_dir_url(__FILE__) . 'images/bg_artists.png';
   $custom_css = "
         .artist {
@@ -18,7 +21,6 @@ function artists_shortcode($atts, $content = null)
   $class = $attributes['class'] ? ' class="' . esc_attr($attributes['class']) . '"' : '';
   $id = $attributes['id'] ? ' id="' . esc_attr($attributes['id']) . '"' : '';
   $artists = get_option('sixonesix_artist_options')['artists'] ?? [];
-
 
   $artists_by_year_month = [];
   // Sort artists by date in ascending order
@@ -143,7 +145,6 @@ function artists_shortcode($atts, $content = null)
 HTML;
 
   $output .= '</div>';
-  // // $output .= '<pre>' . var_export($artists, true) . '</pre>';
   return $output;
 }
 
