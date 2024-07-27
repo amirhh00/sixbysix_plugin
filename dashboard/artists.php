@@ -37,6 +37,56 @@ function sixonesix_artist_settings_page()
 <?php
 }
 
+// Step 1: Register a custom post type for artists
+function sixonesix_register_artist_post_type()
+{
+  $args = array(
+    'public' => true,
+    'label'  => 'Artists',
+    'supports' => array('title', 'editor', 'thumbnail', 'page-attributes'), // Enable support for page attributes including order
+    'show_in_menu' => true,
+    'show_in_rest' => true, // Enable Gutenberg editor
+    'hierarchical' => false,
+    'has_archive' => true,
+    'rewrite' => array('slug' => 'artists'), // Customize the permalink structure
+  );
+  register_post_type('sixonesix_artist', $args);
+}
+add_action('init', 'sixonesix_register_artist_post_type');
+
+// Step 2: The 'page-attributes' support added in the custom post type registration enables the order functionality in the admin UI automatically.
+
+// Step 3: Adjust the query for displaying artists according to their 'menu_order'
+function display_artists_ordered()
+{
+  $args = array(
+    'post_type' => 'sixonesix_artist',
+    'orderby' => 'menu_order',
+    'order' => 'ASC',
+    'posts_per_page' => -1, // Retrieve all artists
+  );
+  $artists_query = new WP_Query($args);
+
+  if ($artists_query->have_posts()) {
+    while ($artists_query->have_posts()) {
+      $artists_query->the_post();
+      // Output the artist's title, thumbnail, etc.
+      echo '<div class="artist">';
+      the_title('<h2>', '</h2>');
+      if (has_post_thumbnail()) {
+        the_post_thumbnail('thumbnail');
+      }
+      the_content();
+      echo '</div>';
+    }
+  } else {
+    echo '<p>No artists found.</p>';
+  }
+
+  // Reset Post Data
+  wp_reset_postdata();
+}
+
 // Register settings, sections, and fields
 function sixonesix_artist_settings_init()
 {
@@ -90,7 +140,7 @@ function sixonesix_artist_name_cb()
           <input type="text" placeholder="Artist Name" name="sixonesix_artist_options[artists][<?php echo $index; ?>][name]" value="<?php echo esc_attr($artist['name'] ?? ''); ?>" />
           <input type="text" placeholder="Instagram Link" name="sixonesix_artist_options[artists][<?php echo $index; ?>][instagram]" value="<?php echo esc_attr($artist['instagram'] ?? ''); ?>" />
           <input type="text" placeholder="Spotify Link" name="sixonesix_artist_options[artists][<?php echo $index; ?>][spotify]" value="<?php echo esc_attr($artist['spotify'] ?? ''); ?>" />
-          <input type="text" placeholder="Date" name="sixonesix_artist_options[artists][<?php echo $index; ?>][date]" value="<?php echo esc_attr($artist['date'] ?? ''); ?>" />
+          <input type="date" placeholder="Date" name="sixonesix_artist_options[artists][<?php echo $index; ?>][date]" value="<?php echo esc_attr($artist['date'] ?? ''); ?>" />
           <button type="button" class="button select-image">Select Image</button>
           <input type="hidden" name="sixonesix_artist_options[artists][<?php echo $index; ?>][image]" class="image-data" value="<?php echo esc_attr($artist['image'] ?? ''); ?>" />
           <div class="image-preview"><?php if (!empty($artist['image'])) {
@@ -114,11 +164,11 @@ function sixonesix_artist_name_cb()
                 <input type="text" placeholder="Artist Name" name="sixonesix_artist_options[artists][` + index + `][name]" />
                 <input type="text" placeholder="Instagram Link" name="sixonesix_artist_options[artists][` + index + `][instagram]" />
                 <input type="text" placeholder="Spotify Link" name="sixonesix_artist_options[artists][` + index + `][spotify]" />
-                <input type="text" placeholder="Date" name="sixonesix_artist_options[artists][` + index + `][date]" />
+                <input type="date" placeholder="Date" name="sixonesix_artist_options[artists][` + index + `][date]" />
                 <button type="button" class="button select-image">Select Image</button>
                 <input type="hidden" class="image-data" name="sixonesix_artist_options[artists][` + index + `][image]" />
                 <div class="image-preview"></div>
-                <button type="button" onclick="removeArtistEntry(this)">Remove</button>
+                <button class="button action" type="button" onclick="removeArtistEntry(this)">Remove</button>
             `;
       wrapper.appendChild(div);
       // Re-bind click event to new select-image buttons
