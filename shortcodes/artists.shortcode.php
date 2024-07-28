@@ -7,20 +7,51 @@ function artists_shortcode($atts, $content = null)
     'id' => '',
   ), $atts);
   $handle = 'sixonesix_artists';
-
   $version = get_active_plugin_version();
-
-  wp_enqueue_style($handle, plugin_dir_url(__FILE__) . 'styles/artists.css', [], $version);
   $image_url = plugin_dir_url(__FILE__) . 'images/bg_artists.png';
   $custom_css = "
-        .artist {
-            background-image: url('{$image_url}');
-        }
-    ";
+      .artist {
+          background-image: url('{$image_url}');
+      }
+  ";
   wp_add_inline_style($handle, $custom_css);
   $class = $attributes['class'] ? ' class="' . esc_attr($attributes['class']) . '"' : '';
   $id = $attributes['id'] ? ' id="' . esc_attr($attributes['id']) . '"' : '';
-  $artists = get_option('sixonesix_artist_options')['artists'] ?? [];
+
+  // Query parameters
+  $args = array(
+    'post_type' => 'artist',
+    'posts_per_page' => -1,
+    'orderby' => 'date',
+    'order' => 'DESC',
+  );
+  wp_enqueue_style($handle, plugin_dir_url(__FILE__) . 'styles/artists.css', [], $version);
+  ob_start();
+  // Custom query
+  $query = new WP_Query($args);
+  if ($query->have_posts()) {
+    $artists = [];
+    while ($query->have_posts()) {
+      $query->the_post();
+      $post_id = get_the_ID();
+      $artist_name = get_the_title();
+      $artist_instagram = get_post_meta($post_id, 'instagram', true);
+      $artist_spotify = get_post_meta($post_id, 'spotify', true);
+      $artist_image = get_post_meta($post_id, 'artist_image', true);
+      $artist_date = get_post_meta($post_id, 'date', true);
+
+      $artist = [
+        'name' => $artist_name,
+        'instagram' => $artist_instagram,
+        'spotify' => $artist_spotify,
+        'date' => $artist_date,
+        'image' => $artist_image,
+      ];
+      // Add artist to the list
+      $artists[] = $artist;
+    }
+    wp_reset_postdata();
+  }
 
   $artists_by_year_month = [];
   // Sort artists by date in ascending order
@@ -57,7 +88,7 @@ function artists_shortcode($atts, $content = null)
       <details class="accordion-item" name="artists-accordion" id="{$year}-{$month}" $open>
           <summary class="accordion-trigger">
             <span class="accordion-title">
-              $year - $month
+              $month $year 
             </span>
             <span class="accordion-icon" aria-hidden="true">
               &plus;
@@ -145,7 +176,7 @@ function artists_shortcode($atts, $content = null)
 HTML;
 
   $output .= '</div>';
-  return $output;
+  return ob_get_clean() . $output;
 }
 
 add_shortcode('artists', 'artists_shortcode');
