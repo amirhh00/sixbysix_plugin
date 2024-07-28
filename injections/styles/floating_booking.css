@@ -23,9 +23,3 @@
 footer.site-footer.u-footer-background.u-container-sides-spacing.full-width {
   padding-bottom: 90px;
 }
-
-@media not screen and (min-width: 50em) {
-  .c-navbar__content {
-    background-color: #c7b373 !important;
-  }
-}
