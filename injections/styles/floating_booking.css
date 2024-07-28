@@ -8,7 +8,7 @@
   z-index: 9;
   color: black;
   background: #c7b373;
-  border-radius: 40px;
+  /* border-radius: 40px; */
   transition: all 0.2s ease;
   text-decoration: none;
   outline: none;
@@ -22,4 +22,10 @@
 
 footer.site-footer.u-footer-background.u-container-sides-spacing.full-width {
   padding-bottom: 90px;
+}
+
+@media not screen and (min-width: 50em) {
+  .c-navbar__content {
+    background-color: #c7b373 !important;
+  }
 }

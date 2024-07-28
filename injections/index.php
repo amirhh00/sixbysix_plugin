@@ -8,7 +8,8 @@ function add_button_to_footer_on_homepage()
   // Check if it's the homepage
   if (is_front_page()) {
     // load css file
-    wp_enqueue_style('floating_booking', plugin_dir_url(__FILE__) . 'styles/floating_booking.css');
+    $version = get_active_plugin_version();
+    wp_enqueue_style('floating_booking', plugin_dir_url(__FILE__) . 'styles/floating_booking.css', [], $version);
 
     // Get the options for button text and link
     $button_text = get_option('sixonesix_button_text', 'Book from here'); // 'Default Text' is a fallback if the option is not set

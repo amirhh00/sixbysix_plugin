@@ -129,7 +129,7 @@
   display: block;
   background-color: transparent;
   color: currentColor;
-  padding: 24px;
+  padding: 24px 0;
   font-size: 20px;
   font-weight: 500;
   font-family: "Inter", sans-serif;
@@ -152,4 +152,12 @@
 
 .accordion-item:not(:first-of-type) .accordion-trigger {
   border-top: 3px solid #eaeaea;
+}
+
+.accordion-item[open] .artistWrapper:last-child {
+  margin-bottom: 30px;
+}
+
+.accordion-item summary::-webkit-details-marker {
+  display: none;
 }
