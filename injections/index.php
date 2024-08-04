@@ -16,11 +16,26 @@ function add_button_to_footer_on_homepage()
 
   // Get the options for button text and link
   $button_text = get_option('sixonesix_button_text', 'Book from here'); // 'Default Text' is a fallback if the option is not set
-  $current_Domain = $_SERVER['HTTP_HOST'];
-  $fallback_link = 'https://' . $current_Domain . '/reservations';
-  $button_link = get_option('sixonesix_button_link', $fallback_link); // 'https://domain/reservations' is a fallback if the option is not set
+  // wp_enqueue_script('seven_rooms', 'https://www.sevenrooms.com/widget/embed.js');
 
-  echo '<a class="btn" id="floating_booking" href="' . esc_url($button_link) . '">' . esc_html($button_text) . '</a>';
+  $sevenRoomsScript = <<<HTML
+    <div id="sr-res-root" class="sr-lg sr-dark sr-#142417 floating_booking btn">
+      $button_text
+    </div>
+    <script src="https://www.sevenrooms.com/widget/embed.js"></script>
+    <script>
+    SevenroomsWidget.init({
+        venueId: "sixonesix",
+        triggerId: "sr-res-root", // id of the dom element that will trigger this widget
+        type: "reservations", // either 'reservations' or 'waitlist' or 'events'
+        styleButton: true, // true if you are using the SevenRooms button
+        clientToken: "" //(Optional) Pass the api generated clientTokenId here
+    })
+    </script>
+  HTML;
+
+  echo $sevenRoomsScript;
+
   $newsLetterBtnText = get_option('sixonesix_newsletter_btn_text', 'NewsLetter Signup');
   $newsLetterText = get_option('sixonesix_newsletter_text', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, obcaecati laboriosam magnam reiciendis blanditiis iure aliquid modi officiis deleniti');
   $newsLetterElement = <<<HTML

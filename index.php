@@ -2,7 +2,7 @@
 /*
 Plugin Name: SixOneSix
 Description: Registers custom shortcodes and helper functions.
-Version: 1.1.33
+Version: 1.1.34
 Author: Amirhossein
 Plugin URI: https://github.com/amirhh00/sixbysix_plugin
 Author URI: https://github.com/amirhh00
