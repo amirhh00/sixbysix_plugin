@@ -27,6 +27,8 @@ footer {
 #newsletter_wrapper {
   background: #c7b373;
   padding: 12px 20px;
+  border-top: 3px solid black;
+  border-bottom: 3px solid black;
 }
 
 #newsletter {
