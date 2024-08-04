@@ -27,7 +27,7 @@ function add_button_to_footer_on_homepage()
   <div id="newsletter_wrapper">
     <div id="newsletter">
       <p>$newsLetterText</p>
-      <a style="color:black" class="btn btn-reverted">
+      <a style="color:black" href="/newsletter" class="btn btn-reverted">
         $newsLetterBtnText
       </a>
     </div>
@@ -39,10 +39,12 @@ function add_button_to_footer_on_homepage()
       // add element to the end of the main
       const element = `$newsLetterElement`;
       let main = document.querySelectorAll('article.page');
-      if (!main) {
+      if (!main || main.length === 0) {
         main = document.getElementsByTagName('main')[0];
+      } else {
+        main = main[main.length - 1];
       }
-      main[main.length - 1].insertAdjacentHTML('beforeend', element);
+      main.insertAdjacentHTML('beforeend', element);
     </script>
   HTML;
 }
