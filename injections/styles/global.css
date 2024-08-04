@@ -1,6 +1,6 @@
 .btn {
   background: none;
-  border: 2px solid #c7b272;
+  border: 2px solid #c4b483;
   padding: 15px 20px;
   color: white;
   display: inline-block;
@@ -13,13 +13,13 @@
 }
 
 .btn.btn-reverted {
-  background: #c7b272;
+  background: #c4b483;
   color: black !important;
   border: 2px solid #000;
 }
 
 .btn.btn-reverted:hover {
   background: #000;
-  color: #c7b272 !important;
+  color: #c4b483 !important;
   cursor: pointer;
 }
