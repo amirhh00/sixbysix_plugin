@@ -12,7 +12,7 @@
 
 .floating_booking:hover {
   color: black;
-  background: #c7b373 !important;
+  background: #c4b483 !important;
 }
 
 footer.site-footer {
@@ -24,7 +24,7 @@ footer {
 }
 
 #newsletter_wrapper {
-  background: #c7b373;
+  background: #c4b483;
   padding: 12px 20px;
   border-top: 3px solid black;
   border-bottom: 3px solid black;

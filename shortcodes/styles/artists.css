@@ -24,7 +24,7 @@
 }
 
 .accordion-item .artistWrapper {
-  background: #c7b373;
+  background: #c4b483;
   padding: 3px;
 }
 
@@ -42,7 +42,7 @@
 .accordion-item .artist .artistPicture {
   width: 150px;
   height: 150px;
-  border: 2px solid #c7b373;
+  border: 2px solid #c4b483;
   border-radius: 20px;
 }
 
@@ -77,7 +77,7 @@
 }
 
 .accordion-item .artist .artistLinks:hover {
-  color: #c7b373;
+  color: #c4b483;
 }
 
 @media (max-width: 650px) {
