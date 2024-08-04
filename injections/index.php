@@ -22,7 +22,7 @@ function add_button_to_footer_on_homepage()
 
   echo '<a class="btn" id="floating_booking" href="' . esc_url($button_link) . '">' . esc_html($button_text) . '</a>';
   $newsLetterBtnText = get_option('sixonesix_newsletter_btn_text', 'NewsLetter Signup');
-  $newsLetterText = get_option('sixonesix_newsletter_text', 'NewsLetter Signup');
+  $newsLetterText = get_option('sixonesix_newsletter_text', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, obcaecati laboriosam magnam reiciendis blanditiis iure aliquid modi officiis deleniti');
   $newsLetterElement = <<<HTML
   <div id="newsletter_wrapper">
     <div id="newsletter">
