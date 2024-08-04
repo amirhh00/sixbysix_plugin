@@ -33,9 +33,8 @@ function sixonesix_settings_page()
         </tr>
         <!-- another row for newsLetter button text -->
         <tr valign="top">
-          <th scope="row">NewsLetter Text</th>
-          <td><input placeholder="NewsLetter Signup" type="text" name="sixonesix_newsletter_text" value="<?php echo esc_attr(get_option('sixonesix_newsletter_btn_text')); ?>" /></td>
-          </td>
+          <th scope="row">NewsLetter Button Text</th>
+          <td><input placeholder="NewsLetter Signup" type="text" name="sixonesix_newsletter_btn_text" value="<?php echo esc_attr(get_option('sixonesix_newsletter_btn_text')); ?>" /></td>
         </tr>
         <tr valign="top">
           <th scope="row">NewsLetter Text</th>

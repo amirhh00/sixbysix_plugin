@@ -38,11 +38,11 @@ function add_button_to_footer_on_homepage()
     <script type="text/javascript">
       // add element to the end of the main
       const element = `$newsLetterElement`;
-      let main = document.getElementsByTagName('main')[0];
+      let main = document.querySelectorAll('article.page');
       if (!main) {
-        main = document.getElementsByTagName('article')[0];
+        main = document.getElementsByTagName('main')[0];
       }
-      main.insertAdjacentHTML('beforeend', element)
+      main[main.length - 1].insertAdjacentHTML('beforeend', element);
     </script>
   HTML;
 }
