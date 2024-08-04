@@ -82,3 +82,45 @@ function display_artist_thumbnail_column($column, $post_id)
 }
 
 add_action('manage_artist_posts_custom_column', 'display_artist_thumbnail_column', 10, 2);
+
+
+function enqueue_quick_edit_script()
+{
+  wp_enqueue_media();
+  wp_enqueue_script('quick-edit-thumbnail', plugin_dir_url(__FILE__) . '/js/artist-media-uploader.js', array('jquery', 'inline-edit-post'), '', true);
+}
+add_action('admin_enqueue_scripts', 'enqueue_quick_edit_script');
+
+function add_quick_edit_thumbnail($column_name, $post_type)
+{
+  if ($column_name != 'thumbnail') return;
+?>
+  <fieldset class="inline-edit-col-right">
+    <div class="inline-edit-col">
+      <label>
+        <span class="title"><?php _e('Thumbnail', 'textdomain'); ?></span>
+        <span class="input-text-wrap">
+          <img id="artist_thumbnail_preview" src="" style="max-width: 100px; display: none;" />
+          <input type="hidden" name="artist_thumbnail" value="">
+          <input type="button" class="button" id="artist_thumbnail_button" value="<?php _e('Select Thumbnail', 'textdomain'); ?>">
+        </span>
+      </label>
+    </div>
+  </fieldset>
+<?php
+}
+add_action('quick_edit_custom_box', 'add_quick_edit_thumbnail', 10, 2);
+
+function save_quick_edit_thumbnail($post_id)
+{
+  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
+  if (!current_user_can('edit_post', $post_id)) return $post_id;
+
+  if (isset($_POST['artist_thumbnail'])) {
+    $thumbnail_id = attachment_url_to_postid($_POST['artist_thumbnail']);
+    if ($thumbnail_id) {
+      set_post_thumbnail($post_id, $thumbnail_id);
+    }
+  }
+}
+add_action('save_post', 'save_quick_edit_thumbnail');
