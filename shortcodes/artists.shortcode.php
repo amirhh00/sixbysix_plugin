@@ -9,12 +9,12 @@ function artists_shortcode($atts, $content = null)
   $handle = 'sixonesix_artists';
   $version = get_active_plugin_version();
   $image_url = plugin_dir_url(__FILE__) . 'images/bg_artists.png';
-  $custom_css = "
-      .artist {
-          background-image: url('{$image_url}');
-      }
-  ";
-  wp_add_inline_style($handle, $custom_css);
+  // $custom_css = "
+  //     .artist {
+  //         background-image: url('{$image_url}');
+  //     }
+  // ";
+  // wp_add_inline_style($handle, $custom_css);
   $class = $attributes['class'] ? ' class="' . esc_attr($attributes['class']) . '"' : '';
   $id = $attributes['id'] ? ' id="' . esc_attr($attributes['id']) . '"' : '';
 
@@ -37,7 +37,7 @@ function artists_shortcode($atts, $content = null)
       $artist_name = get_the_title();
       $artist_instagram = get_post_meta($post_id, 'instagram', true);
       $artist_spotify = get_post_meta($post_id, 'spotify', true);
-      $artist_image = get_post_meta($post_id, 'artist_image', true);
+      $artist_image = get_the_post_thumbnail_url($post_id, 'full');
       $artist_date = get_post_meta($post_id, 'date', true);
 
       $artist = [
@@ -122,7 +122,7 @@ function artists_shortcode($atts, $content = null)
         $formattedDate = $date->format('l jS F Y');
         $output .= <<<HTML
           <div class="artistWrapper">
-              <li class="artist">
+              <li style="background-image: url('{$image_url}');" class="artist">
                   <img class="artistPicture" src="{$artist['image']}" alt="{$artist['name']}">
                   <div class="artistInfo">
                       <div>
