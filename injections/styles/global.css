@@ -24,8 +24,7 @@
   cursor: pointer;
 }
 
-.btn.btn-circle {
-  border-radius: 50%;
+.btn.btn-icon {
   padding: 0;
   width: 100%;
   height: 100%;
@@ -34,4 +33,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.btn.btn-icon:hover {
+  background: #000;
+  color: #c4b483 !important;
+  fill: #c4b483 !important;
+  border: 2px solid #c4b483;
 }

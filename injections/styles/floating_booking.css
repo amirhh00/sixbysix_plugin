@@ -7,7 +7,7 @@
   padding: 15px 20px;
   transition: all 0.2s ease;
   background-color: #000 !important;
-  z-index: 999;
+  z-index: 9999999;
 }
 
 .floating_booking:hover {
@@ -53,10 +53,11 @@ footer {
 }
 
 #call_us_wrapper {
+  display: none;
   position: fixed;
   top: 10px;
-  right: 25px;
-  z-index: 999;
+  right: 15px;
+  z-index: 9999999;
 }
 #call_us_wrapper #call_us {
   width: 50px;
@@ -66,5 +67,8 @@ footer {
 @media not screen and (min-width: 50em) {
   #newsletter {
     flex-direction: column;
+  }
+  #call_us_wrapper {
+    display: block;
   }
 }
