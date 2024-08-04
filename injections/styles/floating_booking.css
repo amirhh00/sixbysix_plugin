@@ -11,7 +11,7 @@
 }
 
 .floating_booking:hover {
-  color: black;
+  color: black !important;
   background: #c4b483 !important;
 }
 
@@ -50,6 +50,17 @@ footer {
   font-weight: 700;
   text-transform: uppercase;
   border-width: 3px;
+}
+
+#call_us_wrapper {
+  position: fixed;
+  top: 10px;
+  right: 25px;
+  z-index: 999;
+}
+#call_us_wrapper #call_us {
+  width: 50px;
+  height: 50px;
 }
 
 @media not screen and (min-width: 50em) {
