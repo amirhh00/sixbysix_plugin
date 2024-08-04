@@ -44,6 +44,12 @@ footer {
   margin: 0;
 }
 
+#newsletter .btn {
+  font-weight: 700;
+  text-transform: uppercase;
+  border-width: 3px;
+}
+
 @media not screen and (min-width: 50em) {
   #newsletter {
     flex-direction: column;

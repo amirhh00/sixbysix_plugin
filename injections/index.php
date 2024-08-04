@@ -21,6 +21,7 @@ function add_button_to_footer_on_homepage()
   $button_link = get_option('sixonesix_button_link', $fallback_link); // 'https://domain/reservations' is a fallback if the option is not set
 
   echo '<a class="btn" id="floating_booking" href="' . esc_url($button_link) . '">' . esc_html($button_text) . '</a>';
+  $newsLetterBtnText = get_option('sixonesix_newsletter_btn_text', 'NewsLetter Signup');
   $newsLetterText = get_option('sixonesix_newsletter_text', 'NewsLetter Signup');
   $newsLetterElement = <<<HTML
   <div id="newsletter_wrapper">
@@ -33,9 +34,9 @@ function add_button_to_footer_on_homepage()
 
   echo <<<HTML
     <script type="text/javascript">
-      // add element to the top of the footer
+      // add element to the end of the main
       const element = `$newsLetterElement`;
-      document.getElementsByTagName('footer')[0].insertAdjacentHTML('afterbegin', element);
+      document.getElementsByTagName('main')[0].insertAdjacentHTML('beforeend', element);
     </script>
   HTML;
 }
