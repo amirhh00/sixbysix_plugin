@@ -19,14 +19,14 @@ footer.site-footer {
   padding-bottom: 90px;
 }
 
-footer {
-  padding-top: 50px;
+footer.site-footer .c-footer__zone:not(:empty) + .c-footer__zone {
+  margin-top: 40px;
 }
 
 #newsletter_wrapper {
   background: #c4b483;
   padding: 12px 20px;
-  border-top: 3px solid black;
+  border-top: 53px solid black;
   border-bottom: 3px solid black;
 }
 
