@@ -14,6 +14,13 @@ function sixonesix_add_admin_menu()
 }
 add_action('admin_menu', 'sixonesix_add_admin_menu');
 
+function sixonesix_enqueue_media_uploader()
+{
+  wp_enqueue_media();
+  wp_enqueue_script('sixonesix-media-uploader', plugin_dir_url(__FILE__) . 'js/media-uploader.js', array('jquery'), null, true);
+}
+add_action('admin_enqueue_scripts', 'sixonesix_enqueue_media_uploader');
+
 function sixonesix_settings_page()
 {
 ?>
@@ -41,6 +48,13 @@ function sixonesix_settings_page()
           <td><textarea cols="100" rows="5" placeholder="NewsLetter Signup" type="text" name="sixonesix_newsletter_text"><?php echo esc_attr(get_option('sixonesix_newsletter_text')); ?></textarea>
           </td>
         </tr>
+        <tr valign="top">
+          <th scope="row">popup NewsLetter background</th>
+          <td>
+            <input type="text" id="sixonesix_newsletter_bg" name="sixonesix_newsletter_bg" value="<?php echo esc_attr(get_option('sixonesix_newsletter_bg')); ?>" />
+            <button type="button" class="button" id="sixonesix_newsletter_bg_button">Select Image</button>
+          </td>
+        </tr>
       </table>
       <?php submit_button(); ?>
     </form>
@@ -54,5 +68,6 @@ function sixonesix_settings_init()
   register_setting('sixonesix_options_group', 'sixonesix_button_link');
   register_setting('sixonesix_options_group', 'sixonesix_newsletter_btn_text');
   register_setting('sixonesix_options_group', 'sixonesix_newsletter_text');
+  register_setting('sixonesix_options_group', 'sixonesix_newsletter_bg');
 }
 add_action('admin_init', 'sixonesix_settings_init');
