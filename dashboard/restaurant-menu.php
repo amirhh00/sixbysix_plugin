@@ -77,6 +77,7 @@ function render_menu_item_meta_box($post)
   $days_available = get_post_meta($post->ID, 'days_available', true);
   $time_available = get_post_meta($post->ID, 'time_available', true);
   $link = get_post_meta($post->ID, 'link', true);
+  $button_text = get_post_meta($post->ID, 'button_text', true);
 
   // Nonce field for security
   wp_nonce_field('save_menu_item_meta_box_data', 'menu_item_meta_box_nonce');
@@ -90,6 +91,11 @@ function render_menu_item_meta_box($post)
 
   <label for="link">Link:</label>
   <input type="text" id="link" name="link" value="$link" size="25" />
+
+  <!-- a new one for button text -->
+  <label for="button_text">Button Text:</label>
+  <input type="text" id="button_text" name="button_text" value="$button_text" size="25" />
+
 HTML;
 
   echo $output;
@@ -123,6 +129,9 @@ function save_menu_item_meta_box_data($post_id)
 
   if (isset($_POST['link'])) {
     update_post_meta($post_id, 'link', sanitize_text_field($_POST['link']));
+  }
+  if (isset($_POST['button_text'])) {
+    update_post_meta($post_id, 'button_text', sanitize_text_field($_POST['button_text']));
   }
 }
 add_action('save_post', 'save_menu_item_meta_box_data');

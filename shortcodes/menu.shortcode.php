@@ -28,12 +28,13 @@ function menus_shortcode($atts, $content = null)
       $menu_days = get_post_meta($post_id, 'days_available', true);
       $menu_time = get_post_meta($post_id, 'time_available', true);
       $menu_link = get_post_meta($post_id, 'link', true);
-
+      $button_text = get_post_meta($post_id, 'button_text', true);
       $menu_item = [
         'name' => $menu_name,
         'days' => $menu_days,
         'time' => $menu_time,
-        'link' => $menu_link
+        'link' => $menu_link,
+        'button_text' => $button_text ? $button_text : 'View Menu'
       ];
       $menu_items[] = $menu_item;
     }
@@ -54,7 +55,7 @@ function menus_shortcode($atts, $content = null)
     $output .= '<p>' . esc_html($item['days']) . '</p>';
     $output .= '<p>' . esc_html($item['time']) . '</p>';
     $output .= '</div>';
-    $output .= '<a href="' . esc_url($item['link']) . '"' . (!empty($item['link']) && $item['link'] !== '#' ? ' target="_blank"' : '') . '>View Menu</a>';
+    $output .= '<a href="' . esc_url($item['link']) . '"' . (!empty($item['link']) && $item['link'] !== '#' ? ' target="_blank"' : '') . '>' . esc_html($item['button_text']) . '</a>';
     $output .= '</li>';
   }
   $output .= '</ul>';
