@@ -1,119 +1,128 @@
 <?php
-function restaurant_menu_add_admin_menu()
+function register_menu_post_type()
+{
+  $labels = array(
+    'name' => 'Menu Items',
+    'singular_name' => 'Menu Item',
+    'add_new' => 'Add New',
+    'add_new_item' => 'Add New Menu Item',
+    'edit_item' => 'Edit Menu Item',
+    'new_item' => 'New Menu Item',
+    'all_items' => 'All Menu Items',
+    'view_item' => 'View Menu Item',
+    'search_items' => 'Search Menu Items',
+    'not_found' => 'No Menu Items found',
+    'not_found_in_trash' => 'No Menu Items found in Trash',
+    'menu_name' => 'Menu Items'
+  );
+
+  $args = array(
+    'labels' => $labels,
+    'public' => true,
+    'has_archive' => true,
+    'rewrite' => array('slug' => 'menu-items'),
+    'supports' => array('title', 'page-attributes'), // Support title and page attributes for ordering
+    'show_in_rest' => false,
+    'menu_icon' => 'dashicons-food',
+    'publicly_queryable' => true,
+    'show_ui'            => true,
+    'show_in_menu'       => false, // Do not show in main menu
+    'query_var'          => true,
+    'capability_type'    => 'post',
+    'hierarchical'       => true, // Enable ordering
+    'menu_position'      => null,
+  );
+
+  register_post_type('menu_item', $args);
+}
+add_action('init', 'register_menu_post_type');
+
+function add_menu_submenu()
 {
   add_submenu_page(
     'sixonesix-settings', // Parent slug
-    'Restaurant Menu Settings', // Page title
-    'Restaurant Menu', // Menu title
-    'manage_options', // Capability
-    'restaurant-menu-settings', // Menu slug
-    'restaurant_menu_settings_page' // Function to display the page
-  );
-}
-add_action('admin_menu', 'restaurant_menu_add_admin_menu');
-
-// Callback function to render the settings page
-function restaurant_menu_settings_page()
-{
-?>
-  <div class="wrap">
-    <h1>Restaurant Menu Settings</h1>
-    <form method="post" action="options.php">
-      <?php
-      settings_fields('restaurant_menu_settings');
-      do_settings_sections('restaurant-menu-settings');
-      submit_button();
-      ?>
-    </form>
-  </div>
-<?php
-}
-
-// Register settings
-function restaurant_menu_register_settings()
-{
-  register_setting('restaurant_menu_settings', 'restaurant_menu_items', 'restaurant_menu_sanitize');
-
-  add_settings_section(
-    'restaurant_menu_section',
-    'Menu Items',
-    'restaurant_menu_section_callback',
-    'restaurant-menu-settings'
+    'All Menu Items',     // Page title
+    'All Menu Items',     // Menu title
+    'manage_options',     // Capability
+    'edit.php?post_type=menu_item' // Menu slug
   );
 
-  add_settings_field(
-    'restaurant_menu_items_field',
-    'Menu Items',
-    'restaurant_menu_items_field_callback',
-    'restaurant-menu-settings',
-    'restaurant_menu_section'
+  add_submenu_page(
+    'sixonesix-settings', // Parent slug
+    'Add New Menu Item',  // Page title
+    'Add New Menu Item',  // Menu title
+    'manage_options',     // Capability
+    'post-new.php?post_type=menu_item' // Menu slug
   );
 }
-add_action('admin_init', 'restaurant_menu_register_settings');
+add_action('admin_menu', 'add_menu_submenu');
 
-// Section callback
-function restaurant_menu_section_callback()
+// Add meta boxes for custom fields
+function add_menu_item_meta_boxes()
 {
-  echo 'Enter your menu items below:';
+  add_meta_box(
+    'menu_item_details',
+    'Menu Item Details',
+    'render_menu_item_meta_box',
+    'menu_item',
+    'normal',
+    'high'
+  );
+}
+add_action('add_meta_boxes', 'add_menu_item_meta_boxes');
+
+function render_menu_item_meta_box($post)
+{
+  // Retrieve current values
+  $days_available = get_post_meta($post->ID, 'days_available', true);
+  $time_available = get_post_meta($post->ID, 'time_available', true);
+  $link = get_post_meta($post->ID, 'link', true);
+
+  // Nonce field for security
+  wp_nonce_field('save_menu_item_meta_box_data', 'menu_item_meta_box_nonce');
+
+  $output = <<<HTML
+  <label for="days_available">Days Available:</label>
+  <input type="text" id="days_available" name="days_available" value="$days_available" size="25" />
+
+  <label for="time_available">Time Available:</label>
+  <input type="text" id="time_available" name="time_available" value="$time_available" size="25" />
+
+  <label for="link">Link:</label>
+  <input type="text" id="link" name="link" value="$link" size="25" />
+HTML;
+
+  echo $output;
 }
 
-// Field callback
-function restaurant_menu_items_field_callback()
+function save_menu_item_meta_box_data($post_id)
 {
-  $menu_items = get_option('restaurant_menu_items', array());
-?>
-  <div id="menu-items">
-    <?php foreach ($menu_items as $index => $item) : ?>
-      <div class="menu-item">
-        <input type="text" name="restaurant_menu_items[<?php echo $index; ?>][name]" value="<?php echo esc_attr($item['name']); ?>" placeholder="Item Name">
-        <input type="text" name="restaurant_menu_items[<?php echo $index; ?>][days]" value="<?php echo esc_attr($item['days']); ?>" placeholder="Days Available">
-        <input type="text" name="restaurant_menu_items[<?php echo $index; ?>][time]" value="<?php echo esc_attr($item['time']); ?>" placeholder="Time Available">
-        <input type="text" name="restaurant_menu_items[<?php echo $index; ?>][link]" value="<?php echo esc_attr($item['link']); ?>" placeholder="Link">
-        <button type="button" class="button remove-item">Remove</button>
-      </div>
-    <?php endforeach; ?>
-  </div>
-  <button type="button" class="button" id="add-item">Add Item</button>
-
-  <script>
-    jQuery(document).ready(function($) {
-      var index = <?php echo count($menu_items); ?>;
-
-      $('#add-item').on('click', function() {
-        var newItem = '<div class="menu-item">' +
-          '<input type="text" name="restaurant_menu_items[' + index + '][name]" placeholder="Item Name">' +
-          '<input type="text" name="restaurant_menu_items[' + index + '][days]" placeholder="Days Available">' +
-          '<input type="text" name="restaurant_menu_items[' + index + '][time]" placeholder="Time Available">' +
-          '<input type="text" name="restaurant_menu_items[' + index + '][link]" placeholder="Link">' +
-          '<button type="button" class="button remove-item">Remove</button>' +
-          '</div>';
-        $('#menu-items').append(newItem);
-        index++;
-      });
-
-      $(document).on('click', '.remove-item', function() {
-        $(this).parent().remove();
-      });
-    });
-  </script>
-<?php
-}
-
-// Sanitize and save the input
-function restaurant_menu_sanitize($input)
-{
-  $sanitized_input = array();
-  foreach ($input as $item) {
-    if (
-      !empty($item['name']) && !empty($item['days']) && !empty($item['time']) && !empty($item['link'])
-    ) {
-      $sanitized_input[] = array(
-        'name' => sanitize_text_field($item['name']),
-        'days' => sanitize_text_field($item['days']),
-        'time' => sanitize_text_field($item['time']),
-        'link' => esc_url($item['link']),
-      );
-    }
+  // Check nonce for security
+  if (!isset($_POST['menu_item_meta_box_nonce']) || !wp_verify_nonce($_POST['menu_item_meta_box_nonce'], 'save_menu_item_meta_box_data')) {
+    return;
   }
-  return $sanitized_input;
+
+  // Check if not an autosave
+  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+    return;
+  }
+
+  // Check user permissions
+  if (!current_user_can('edit_post', $post_id)) {
+    return;
+  }
+
+  // Save custom fields
+  if (isset($_POST['days_available'])) {
+    update_post_meta($post_id, 'days_available', sanitize_text_field($_POST['days_available']));
+  }
+
+  if (isset($_POST['time_available'])) {
+    update_post_meta($post_id, 'time_available', sanitize_text_field($_POST['time_available']));
+  }
+
+  if (isset($_POST['link'])) {
+    update_post_meta($post_id, 'link', sanitize_text_field($_POST['link']));
+  }
 }
+add_action('save_post', 'save_menu_item_meta_box_data');
