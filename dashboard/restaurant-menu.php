@@ -42,7 +42,7 @@ function add_menu_submenu()
   add_submenu_page(
     'sixonesix-settings', // Parent slug
     'All Menu Items',     // Page title
-    'All Menu Items',     // Menu title
+    '🍽️All Menu Items',     // Menu title
     'manage_options',     // Capability
     'edit.php?post_type=menu_item' // Menu slug
   );
@@ -50,7 +50,7 @@ function add_menu_submenu()
   add_submenu_page(
     'sixonesix-settings', // Parent slug
     'Add New Menu Item',  // Page title
-    'Add New Menu Item',  // Menu title
+    '   +Add New Menu',  // Menu title
     'manage_options',     // Capability
     'post-new.php?post_type=menu_item' // Menu slug
   );

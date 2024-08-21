@@ -5,7 +5,7 @@ function sixonesix_add_admin_menu()
   add_menu_page(
     'SixOneSix Settings',
     'SixOneSix',
-    'manage_options',
+    'edit_posts',
     'sixonesix-settings',
     'sixonesix_settings_page',
     'dashicons-admin-site',
@@ -23,6 +23,11 @@ add_action('admin_enqueue_scripts', 'sixonesix_enqueue_media_uploader');
 
 function sixonesix_settings_page()
 {
+  $isAdmin = current_user_can('manage_options');
+  if (!$isAdmin) {
+    echo '<h1>Sorry, you do not have permission to access this page.</h1>';
+    return;
+  }
 ?>
   <div class="wrap">
     <h1>SixOneSix Settings</h1>

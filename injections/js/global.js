@@ -1,4 +1,7 @@
-// if link text is home and is on desktop, hide it
+window.addEventListener("load", function () {
+  hideMainFromMenu();
+});
+
 function hideMainFromMenu() {
   document.querySelectorAll("#masthead .menu .menu-item a").forEach(function (e) {
     if (e.innerText.toLowerCase() === "home") {

@@ -22,9 +22,10 @@ function register_artist_post_type()
     'labels'             => $labels,
     'public'             => true,
     'publicly_queryable' => true,
+    'exclude_from_search' => true,
     'show_ui'            => true,
     'show_in_menu'       => false, // Do not show in main menu
-    'query_var'          => true,
+    'query_var'          => false,
     'rewrite'            => array('slug' => 'artist'),
     'capability_type'    => 'post',
     'has_archive'        => true,
@@ -43,7 +44,7 @@ function add_artist_submenu()
   add_submenu_page(
     'sixonesix-settings', // Parent slug
     'All Artists',        // Page title
-    'All Artists',        // Menu title
+    '🎹All Artists',        // Menu title
     'manage_options',     // Capability
     'edit.php?post_type=artist' // Menu slug
   );
@@ -51,13 +52,59 @@ function add_artist_submenu()
   add_submenu_page(
     'sixonesix-settings', // Parent slug
     'Add New Artist',     // Page title
-    'Add New Artist',     // Menu title
+    '   +Add New Artist',     // Menu title
     'manage_options',     // Capability
     'post-new.php?post_type=artist' // Menu slug
   );
 }
 
 add_action('admin_menu', 'add_artist_submenu');
+
+function register_artist_meta()
+{
+  register_post_meta('artist', 'artist_instagram', array(
+    'show_in_rest' => true,
+    'single' => true,
+    'type' => 'string',
+  ));
+  register_post_meta('artist', 'artist_spotify', array(
+    'show_in_rest' => true,
+    'single' => true,
+    'type' => 'string',
+  ));
+}
+
+add_action('init', 'register_artist_meta');
+
+function add_artist_meta_boxes()
+{
+  add_meta_box('artist_meta_box', __('Artist Meta', 'textdomain'), 'render_artist_meta_box', 'artist', 'side', 'default');
+}
+add_action('add_meta_boxes', 'add_artist_meta_boxes');
+
+function render_artist_meta_box($post)
+{
+  $instagram = get_post_meta($post->ID, 'artist_instagram', true);
+  $spotify = get_post_meta($post->ID, 'artist_spotify', true);
+?>
+  <label for="artist_instagram"><?php _e('Instagram', 'textdomain'); ?></label>
+  <input type="text" name="artist_instagram" id="artist_instagram" value="<?php echo esc_attr($instagram); ?>" />
+  <br />
+  <label for="artist_spotify"><?php _e('Spotify', 'textdomain'); ?></label>
+  <input type="text" name="artist_spotify" id="artist_spotify" value="<?php echo esc_attr($spotify); ?>" />
+<?php
+}
+
+function save_artist_meta($post_id)
+{
+  if (array_key_exists('artist_instagram', $_POST)) {
+    update_post_meta($post_id, 'artist_instagram', sanitize_text_field($_POST['artist_instagram']));
+  }
+  if (array_key_exists('artist_spotify', $_POST)) {
+    update_post_meta($post_id, 'artist_spotify', sanitize_text_field($_POST['artist_spotify']));
+  }
+}
+add_action('save_post', 'save_artist_meta');
 
 // Add thumbnail column to the artist post type list table
 function add_artist_columns($columns)
