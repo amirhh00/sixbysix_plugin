@@ -1,0 +1,29 @@
+<svg width="200px" height="200px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+    <defs>
+      <filter id="f1" x="-50%" y="-50%" width="200%" height="200%">
+        <feOffset result="offOut" in="SourceAlpha" dx="0" dy="0" />
+        <feMorphology in="offOut" result="expanded" operator="dilate" radius="1.5"/>
+        <feFlood flood-color="#555" flood-opacity="1" result="offsetColor"/>
+        <feComposite operator="in" in="offsetColor" in2="expanded" result="offsetBlur"/>
+        <feMerge>
+          <feMergeNode in="offsetBlur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </defs>
+  <g  filter="url(#f1)">
+    <rect x="10" y="10" width="80" height="80" fill="none" stroke="#b39b5b" stroke-width="10">
+    </rect>
+    <rect x="35" y="35" width="30" height="30" transform="rotate(45 50 50)" fill="none" stroke="#b39b5b" stroke-width="10">
+      <animateTransform attributeName="transform" type="rotate" values="360 50 50;0 50 50" keyTimes="0;1" dur="5s" repeatCount="indefinite" />
+  </rect>
+    <line x1="5" y1="50" x2="35" y2="50" stroke="#b39b5b" stroke-width="10" >
+    </line>
+    <line x1="50" y1="5" x2="50" y2="35" stroke="#b39b5b" stroke-width="10" >
+    </line>
+    <line x1="65" y1="50" x2="95" y2="50" stroke="#b39b5b" stroke-width="10" >
+    </line>
+    <line x1="50" y1="65" x2="50" y2="95" stroke="#b39b5b" stroke-width="10" >
+    </line>
+      </g>
+</svg>

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "create-block/example-dynamic",
+  "version": "0.1.0",
+  "title": "Example Dynamic",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "Example block scaffolded with Create Block tool.",
+  "example": {},
+  "supports": {
+    "html": false,
+    "anchor": true
+  },
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "default": "This is a title!"
+    },
+    "content": {
+      "type": "string",
+      "default": "Lorem ipsum dolor sit amet, consec tetur adipis cing elit. Ut elit tellus, luctus nullam corper mattis, pulvinar dapibus"
+    },
+    "headingColor": {
+      "type": "string",
+      "default": "#1e222c"
+    },
+    "contentColor": {
+      "type": "string",
+      "default": "#3a445e"
+    },
+    "image": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "textdomain": "example-dynamic",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php",
+  "script": "file:./front.js"
+}

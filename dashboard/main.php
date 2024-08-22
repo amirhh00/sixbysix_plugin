@@ -2,13 +2,15 @@
 // Add menu item to the dashboard
 function sixonesix_add_admin_menu()
 {
+  $svg_icon = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents(plugin_dir_path(__FILE__) . '../assets/images/logo.svg'));
+
   add_menu_page(
     'SixOneSix Settings',
     'SixOneSix',
     'edit_posts',
     'sixonesix-settings',
     'sixonesix_settings_page',
-    'dashicons-admin-site',
+    $svg_icon,
     20
   );
 }

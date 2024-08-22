@@ -9,49 +9,43 @@ function artists_shortcode($atts, $content = null)
   $handle = 'sixonesix_artists';
   $version = get_active_plugin_version();
   $image_url = plugin_dir_url(__FILE__) . 'images/bg_artists.png';
-  // $custom_css = "
-  //     .artist {
-  //         background-image: url('{$image_url}');
-  //     }
-  // ";
-  // wp_add_inline_style($handle, $custom_css);
+
   $class = $attributes['class'] ? ' class="' . esc_attr($attributes['class']) . '"' : '';
   $id = $attributes['id'] ? ' id="' . esc_attr($attributes['id']) . '"' : '';
 
-  // Query parameters
-  $args = array(
-    'post_type' => 'artist',
-    'posts_per_page' => -1,
-    'orderby' => 'date',
-    'order' => 'DESC',
-  );
+  // get all artists that are performing on sundays from now until the end of the year from calendar
+  $calData = getAllCalendarDataOnSundays();
+  $artists = [];
+  foreach ($calData as $date => $data) {
+    if ($data && isset($data['events'])) {
+      $event_ids = json_decode($data['events']);
+      foreach ($event_ids as $event_id) {
+        $artist_ids = get_post_meta($event_id, 'artists', true);
+        if (!$artist_ids) {
+          continue;
+        }
+        foreach ($artist_ids as $artist_id) {
+          $artist = get_post($artist_id);
+          $artist_name = $artist->post_title;
+          $artist_instagram = get_post_meta($artist_id, 'artist_instagram', true);
+          $artist_spotify = get_post_meta($artist_id, 'artist_spotify', true);
+          $artist_image = get_the_post_thumbnail_url($artist_id, 'thumbnail');
+          $artist_date = $date;
+          $artist = [
+            'name' => $artist_name,
+            'instagram' => $artist_instagram,
+            'spotify' => $artist_spotify,
+            'date' => $artist_date,
+            'image' => $artist_image,
+          ];
+          // Add artist to the list
+          $artists[] = $artist;
+        }
+      }
+    }
+  }
   wp_enqueue_style($handle, plugin_dir_url(__FILE__) . 'styles/artists.css', [], $version);
   ob_start();
-  // Custom query
-  $query = new WP_Query($args);
-  if ($query->have_posts()) {
-    $artists = [];
-    while ($query->have_posts()) {
-      $query->the_post();
-      $post_id = get_the_ID();
-      $artist_name = get_the_title();
-      $artist_instagram = get_post_meta($post_id, 'instagram', true);
-      $artist_spotify = get_post_meta($post_id, 'spotify', true);
-      $artist_image = get_the_post_thumbnail_url($post_id, 'full');
-      $artist_date = get_post_meta($post_id, 'date', true);
-
-      $artist = [
-        'name' => $artist_name,
-        'instagram' => $artist_instagram,
-        'spotify' => $artist_spotify,
-        'date' => $artist_date,
-        'image' => $artist_image,
-      ];
-      // Add artist to the list
-      $artists[] = $artist;
-    }
-    wp_reset_postdata();
-  }
 
   $artists_by_year_month = [];
   // Sort artists by date in ascending order

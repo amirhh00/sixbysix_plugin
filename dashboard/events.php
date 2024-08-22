@@ -68,65 +68,65 @@ function add_event_submenu()
 
 add_action('admin_menu', 'add_event_submenu');
 
-$PLUGIN_NAME = strtolower(get_plugin_info()['Name']);
-$HOSTNAME = get_home_url();
-$REST_API_BASE = $PLUGIN_NAME . '/v1';
 
-// add new event rest api if user is admin
-function add_event_rest_api()
+function add_artists_meta_box()
 {
-  global $REST_API_BASE;
-  register_rest_route($REST_API_BASE, '/event', array(
-    'methods' => 'POST',
-    'callback' => 'create_event',
-    'permission_callback' => function () {
-      return current_user_can('edit_posts');
-    },
-    'args' => array(
-      'title' => array(
-        'required' => true,
-        'validate_callback' => function ($param, $request, $key) {
-          return is_string($param);
-        }
-      ),
-      'content' => array(
-        'required' => false,
-        'validate_callback' => function ($param, $request, $key) {
-          return is_string($param);
-        }
-      ),
-      'status' => array(
-        'required' => false,
-        'validate_callback' => function ($param, $request, $key) {
-          return is_string($param);
-        }
-      ),
-      'date' => array(
-        'required' => false,
-        'validate_callback' => function ($param, $request, $key) {
-          return is_string($param);
-        }
-      )
-    )
+  add_meta_box(
+    'artists_meta_box', // ID of the meta box
+    'Artists', // Title of the meta box
+    'display_artists_meta_box', // Callback function to display the meta box
+    'event', // Post type where the meta box will appear
+    'normal', // Context where the meta box will appear
+    'default' // Priority of the meta box
+  );
+}
+add_action('add_meta_boxes', 'add_artists_meta_box');
+
+function display_artists_meta_box($post)
+{
+  $selected_artists = get_post_meta($post->ID, 'artists', true);
+  $all_artists = get_posts(array(
+    'post_type' => 'artist',
+    'posts_per_page' => -1,
+    'orderby' => 'title',
+    'order' => 'ASC'
   ));
+
+  wp_nonce_field(basename(__FILE__), 'artists_nonce');
+?>
+  <select name="artists[]" multiple="multiple" style="width: 100%;">
+    <?php foreach ($all_artists as $artist) : ?>
+      <option value="<?php echo esc_attr($artist->ID); ?>" <?php echo in_array($artist->ID, (array) $selected_artists) ? 'selected="selected"' : ''; ?>>
+        <?php echo esc_html($artist->post_title); ?>
+      </option>
+    <?php endforeach; ?>
+  </select>
+<?php
 }
 
-add_action('rest_api_init', 'add_event_rest_api');
-
-function create_event(WP_REST_Request $request)
+function save_artists_meta_box($post_id)
 {
-  $title = $request->get_param('title');
-  $content = $request->get_param('content') ? $request->get_param('content') : '';
-  $status = $request->get_param('status') ? $request->get_param('status') : 'publish';
-  $date = $request->get_param('date') ? $request->get_param('date') : date('Y-m-d H:i:s');
+  if (!isset($_POST['artists_nonce']) || !wp_verify_nonce($_POST['artists_nonce'], basename(__FILE__))) {
+    return $post_id;
+  }
 
-  $post_id = wp_insert_post(array(
-    'post_title' => $title,
-    'post_content' => $content,
-    'post_status' => $status,
-    'post_date' => $date,
-    'post_type' => 'event'
-  ));
+  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+    return $post_id;
+  }
 
-  return new WP_REST_Response($post_id, 123);
+  if ('event' !== $_POST['post_type'] || !current_user_can('edit_post', $post_id)) {
+    return $post_id;
+  }
+
+  $artists = isset($_POST['artists']) ? array_map('sanitize_text_field', $_POST['artists']) : array();
+  update_post_meta($post_id, 'artists', $artists);
+}
+add_action('save_post', 'save_artists_meta_box');
+
+$artists = get_post_meta(get_the_ID(), 'artists', true);
+if (!empty($artists)) {
+  foreach ($artists as $artist_id) {
+    $artist = get_userdata($artist_id);
+    echo esc_html($artist->display_name) . '<br>';
+  }
 }
