@@ -13,7 +13,8 @@ function sixonesix_add_calendar_submenu()
 }
 add_action('admin_menu', 'sixonesix_add_calendar_submenu');
 
-$PLUGIN_NAME = strtolower(get_plugin_info()['Name']);
+// $PLUGIN_INFO = get_plugin_info(); // TODO: fix this
+$PLUGIN_NAME = strtolower('SixOneSix');
 $HOSTNAME = get_home_url();
 $REST_API_BASE = $PLUGIN_NAME . '/v1';
 
@@ -39,13 +40,18 @@ function sixonesix_calendar_page()
   <div class="wrap">
     <h1>Calendar</h1>
     <?php if ($is_admin_dashboardPage) : ?>
-      <button class="button" style="margin-bottom:16px;padding: 5px;aspect-ratio: 16/9; background-image: url('<?php echo $background_image; ?>'); background-size: cover;"
+      <button class="button"
         id="upload-background">
         <p style="color: white; background-color: rgba(0, 0, 0, 0.5);">
           <?php echo $background_image ? 'Change' : 'Upload'; ?> Calendar Background
         </p>
+        <!-- delete background for this month -->
       </button>
-      <!-- delete background for this month -->
+      <button class="button" style="position:absolute; color: red; margin-right: 15px; padding: 0 6px;"
+        id="delete-background">
+        <!-- delete character -->
+        &#10006;
+      </button>
       <script>
         var $ = jQuery;
         /**
@@ -97,6 +103,12 @@ function sixonesix_calendar_page()
       </h3>
       <button class="btn btn-reverted" id="nextMonth">Next</button>
     </div>
+    <div style="display: flex; justify-content: center;">
+      <!-- go to current month button with js -->
+      <button class="btn" style="border: none;" id="reloadMonth">
+        &#10227;
+      </button>
+    </div>
     <br>
     <div id="daysinweek" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;">
       <div style="text-align: center;">Sunday</div>
@@ -132,7 +144,7 @@ function sixonesix_calendar_page()
             </svg>
           </button>
           <h2 style="text-align: center;margin-bottom: 0;"></h2>
-          <label for="artist">Select Events:</label>
+          <span>Select Events:</span>
           <div style="display: flex; gap: 6px; width: 100%;">
             <select style="flex:1" name="events[]" id="event" multiple>
               <!-- <option selected value> select an Event </option> -->
@@ -151,6 +163,15 @@ function sixonesix_calendar_page()
                 <path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152L0 424c0 48.6 39.4 88 88 88l272 0c48.6 0 88-39.4 88-88l0-112c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 112c0 22.1-17.9 40-40 40L88 464c-22.1 0-40-17.9-40-40l0-272c0-22.1 17.9-40 40-40l112 0c13.3 0 24-10.7 24-24s-10.7-24-24-24L88 64z" />
               </svg>
             </button>
+            <a
+              id="addNewEvent"
+              title="add new event"
+              type="button"
+              class="button"
+              href="<?php echo $HOSTNAME; ?>/wp-admin/post-new.php?post_type=event"
+              style="display: inline-flex; align-items: center; padding: 4px 8px; font-size: larger;">
+              &#43;
+            </a>
           </div>
           <label for="dayBackground">Select Day Background:</label>
           <div style="display: flex;align-items: center;gap: 6px;">
@@ -316,7 +337,9 @@ function sixonesix_calendar_page()
       const calendar = document.getElementById('calendar');
       const prevMonth = document.getElementById('prevMonth');
       const nextMonth = document.getElementById('nextMonth');
+      const reloadMonth = document.getElementById('reloadMonth');
       const uploadButton = document.getElementById('upload-background');
+      const removeBg = document.getElementById('delete-background');
       let currentDate = new Date();
 
       function renderCalendar(date) {
@@ -325,13 +348,11 @@ function sixonesix_calendar_page()
         const firstDay = new Date(year, month, 1).getDay();
         const lastDate = new Date(year, month + 1, 0).getDate();
         const monthNames = <?php echo json_encode($monthNames); ?>;
-
         document.querySelector('.currentMonth').textContent = `${monthNames[month]} ${year}`;
         const REST_API_BASE = '<?php echo $HOSTNAME . '/wp-json/' . $REST_API_BASE; ?>';
         // calculate the total number of grids in the calendar
-        // const totalNumberOfGrids = 7 * Math.ceil((firstDay + lastDate) / 7);
-        const Month = `${date.getMonth() + 1}`.padStart(2, '0');
-        fetch(`${REST_API_BASE}/calendar?month=${Month}&year=${year}`)
+        const MonthWithPad = `${date.getMonth() +1}`.padStart(2, '0');
+        fetch(`${REST_API_BASE}/calendar?month=${MonthWithPad}&year=${year}`)
           .then(response => response.json())
           .then(
             /**
@@ -353,7 +374,7 @@ function sixonesix_calendar_page()
                     if (year === new Date().getFullYear())
                       isCurrentDay = true;
 
-                const date = `${year}-${(Month).toString().padStart(2, '0')}-${i.toString().padStart(2, '0')}`;
+                const date = `${year}-${(MonthWithPad).toString().padStart(2, '0')}-${i.toString().padStart(2, '0')}`;
                 const todayEvent = allEventsForMonth.days[date];
                 const todayThumbnail = todayEvent?.daybg;
                 calendar.innerHTML += `<button 
@@ -377,49 +398,62 @@ function sixonesix_calendar_page()
               // if the background image is set, change elements
               calendar.style.backgroundImage = allEventsForMonth.monthBg ? `url(${allEventsForMonth.monthBg})` : '';
               // set the background image to the selected image
-              uploadButton.style.backgroundImage = `url(${allEventsForMonth.monthBg})`;
-              if (allEventsForMonth.monthBg) {
-                uploadButton.querySelector('p').textContent = 'Change Calendar Background';
-                document.querySelectorAll('.day:not(.empty)').forEach(day => {
-                  if (!day.dataset.bgurl) {
-                    day.style.mixBlendMode = 'lighten';
-                  }
-                });
-              } else {
-                uploadButton.querySelector('p').textContent = 'Upload Calendar Background';
-                document.querySelectorAll('.day:not(.empty)').forEach(day => {
-                  if (!day.dataset.bgurl) {
-                    day.style.mixBlendMode = 'unset';
-                  }
-                });
-              }
-            });
+              <?php if ($is_admin_dashboardPage) : ?>
+                if (allEventsForMonth.monthBg) {
+                  uploadButton.style.backgroundImage = `url(${allEventsForMonth.monthBg})`;
+                } else {
+                  uploadButton.style.backgroundImage = '';
+                }
+                if (allEventsForMonth.monthBg) {
+                  uploadButton.querySelector('p').textContent = 'Change Calendar Background';
+                  document.querySelectorAll('.day:not(.empty)').forEach(day => {
+                    if (!day.dataset.bgurl) {
+                      day.style.mixBlendMode = 'lighten';
+                    }
+                  });
+                } else {
+                  uploadButton.querySelector('p').textContent = 'Upload Calendar Background';
+                  document.querySelectorAll('.day:not(.empty)').forEach(day => {
+                    if (!day.dataset.bgurl) {
+                      day.style.mixBlendMode = 'unset';
+                    }
+                  });
+                }
+              <?php endif; ?>
 
+            });
       }
 
+      renderCalendar(currentDate);
+
       prevMonth.addEventListener('click', function() {
-        currentDate.setMonth(currentDate.getMonth() - 1);
+        currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
         renderCalendar(currentDate);
       });
 
       nextMonth.addEventListener('click', function() {
-        currentDate.setMonth(currentDate.getMonth() + 1);
+        currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
         renderCalendar(currentDate);
       });
 
-      renderCalendar(currentDate);
+      reloadMonth.addEventListener('click', function() {
+        currentDate = new Date();
+        renderCalendar(currentDate);
+      });
+
 
       uploadButton?.addEventListener('click', function() {
         const frame = wp.media({
           title: 'Select Calendar Background',
           multiple: false,
-          // 
+          button: {
+            text: 'Use this media'
+          },
         });
-        const onselectListener = frame.on('select', function() {
+        frame.on('select', function() {
           const attachment = frame.state().get('selection').first().toJSON();
           const imageUrl = attachment.url;
           calendar.style.backgroundImage = `url(${imageUrl})`;
-          // Save the selected image URL in the database
           jQuery.ajax({
             url: ajaxurl,
             type: 'POST',
@@ -450,25 +484,32 @@ function sixonesix_calendar_page()
             }
           });
         })
-        frame.on('close', function() {
-          onselectListener.off();
-          console.log('closed');
-        });
-        // frame.views.view.modal.__proto__.once("open", () => {
-        //   // select default background image
-        //   const defaultBackgroundUrl = document.querySelector('#upload-background').style.backgroundImage;
-        //   if (defaultBackgroundUrl) {
-        //     const defaultBackground = defaultBackgroundUrl.replace('url("', '').replace('")', '');
-        //     console.log('bg: ', defaultBackground);
-        //     const selection = frame.state().get('selection');
-        //     const attachment = new wp.media.model.Attachment({
-        //       id: 0,
-        //       url: defaultBackground
-        //     });
-        //     selection.add(attachment);
-        //   }
-        // });
         frame.open();
+      });
+      removeBg?.addEventListener('click', function() {
+        jQuery.ajax({
+          url: ajaxurl,
+          type: 'POST',
+          data: {
+            action: 'remove_calendar_month_background',
+            month: `${currentDate.getMonth() + 1}`.padStart(2, '0'),
+            year: currentDate.getFullYear()
+          },
+          headers: {
+            'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest'); ?>'
+          },
+          success: function() {
+            // remove the background image
+            calendar.style.backgroundImage = '';
+            uploadButton.style.backgroundImage = '';
+            uploadButton.querySelector('p').textContent = 'Upload Calendar Background';
+            document.querySelectorAll('.day:not(.empty)').forEach(day => {
+              if (!day.dataset.bgurl) {
+                day.style.mixBlendMode = 'unset';
+              }
+            });
+          }
+        });
       });
     });
   </script>
@@ -476,6 +517,19 @@ function sixonesix_calendar_page()
     .wrap {
       max-width: 940px;
       margin: 0 auto;
+    }
+
+    #upload-background {
+      cursor: pointer;
+      position: relative;
+      margin-bottom: 16px;
+      padding: 5px;
+      aspect-ratio: 16/9;
+      background-size: cover;
+      <?php if ($background_image) {
+        echo 'background-image: url(' . esc_url($background_image) . ');';
+      }
+      ?>
     }
 
     .btn {
@@ -503,7 +557,6 @@ function sixonesix_calendar_page()
       font-size: xx-large;
       color: white;
     }
-
 
     .day,
     .empty {
@@ -589,13 +642,14 @@ function sixonesix_calendar_shortcode()
 }
 add_shortcode('eventcal', 'sixonesix_calendar_shortcode');
 
-// Handle AJAX request to save the background image URL
-function sixonesix_save_calendar_background()
+// Handle AJAX request to save the background image URL for a month
+function save_calendar_background()
 {
   // Check if the user is allowed to update the background image
   if (!current_user_can('edit_posts')) {
     wp_send_json_error('You are not allowed to update the background image');
   }
+
   // Check if the image URL is provided and month and year are provided as well
   if (isset($_POST['image_url']) && isset($_POST['month']) && isset($_POST['year'])) {
     update_option('sixonesix_calendar_background_' . esc_attr($_POST['month']) . '-' . esc_attr($_POST['year']), esc_url_raw($_POST['image_url']));
@@ -609,8 +663,21 @@ function sixonesix_save_calendar_background()
     wp_send_json_error('No image URL provided');
   }
 }
-add_action('wp_ajax_save_calendar_background', 'sixonesix_save_calendar_background');
+add_action('wp_ajax_save_calendar_background', 'save_calendar_background');
 
+function remove_calendar_month_background()
+{
+  if (!current_user_can('edit_posts')) {
+    wp_send_json_error('You are not allowed to update the background image');
+  }
+  if (isset($_POST['month']) && isset($_POST['year'])) {
+    delete_option('sixonesix_calendar_background_' . esc_attr($_POST['month']) . '-' . esc_attr($_POST['year']));
+    wp_send_json_success();
+  } else {
+    wp_send_json_error('No image URL provided');
+  }
+}
+add_action('wp_ajax_remove_calendar_month_background', 'remove_calendar_month_background');
 
 add_action('rest_api_init', function () use ($REST_API_BASE) {
   register_rest_route($REST_API_BASE, '/calendar', array(

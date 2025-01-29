@@ -5,7 +5,7 @@
  * Description:       Registers custom shortcodes and helper functions.
  * Requires at least: 6.1
  * Requires PHP:      7.0
- * Version:           1.1.46
+ * Version:           1.1.48
  * Author:            Amirhossein
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -21,7 +21,7 @@ require_once plugin_dir_path(__FILE__) . 'shortcodes/index.php';
 require_once plugin_dir_path(__FILE__) . 'dashboard/index.php';
 require_once plugin_dir_path(__FILE__) . 'injections/index.php';
 
-if (! defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
   // header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
   exit; // Exit if accessed directly.
 }
@@ -45,27 +45,32 @@ function get_plugin_info()
   $plugin_data = get_plugin_data($pluginPath);
   return $plugin_data;
 }
-define('GUTENBERG_BLOCKS_NAME', get_plugin_info()['Name']);
-define('GUTENBERG_BLOCKS_VERSION', get_active_plugin_version());
-define('GUTENBERG_BLOCKS_URL', plugin_dir_url(__FILE__));
-define('GUTENBERG_BLOCKS_INC_URL', GUTENBERG_BLOCKS_URL . 'assets/');
 
-// /**
-//  * Loads PSR-4-style plugin classes.
-//  */
-// function classloader($class)
-// {
-//   static $ns_offset;
-//   if (strpos($class, __NAMESPACE__ . '\\') === 0) {
-//     if ($ns_offset === NULL) {
-//       $ns_offset = strlen(__NAMESPACE__) + 1;
-//     }
-//     include __DIR__ . strtr(substr($class, $ns_offset), '\\', '/') . '.php';
-//   }
-// }
-// spl_autoload_register(__NAMESPACE__ . '\classloader');
+register_activation_hook(__FILE__, 'create_event_list_page');
 
-// add_action('plugins_loaded', __NAMESPACE__ . '\Plugin::loadTextDomain');
-// add_action('init', __NAMESPACE__ . '\Plugin::perInit', 0);
-// add_action('init', __NAMESPACE__ . '\Plugin::init', 20);
-// //add_action('admin_init', __NAMESPACE__ . '\Admin::init');
+function create_event_list_page()
+{
+  $page_title = 'Event List';
+  $page_content = '<!-- wp:shortcode -->[eventsl]<!-- /wp:shortcode -->';
+
+  // Use WP_Query to check if the page exists
+  $args = array(
+    'post_type' => 'page',
+    'title' => $page_title,
+    'post_status' => 'publish',
+    'posts_per_page' => 1,
+    'name' => sanitize_title($page_title),
+  );
+
+  $query = new WP_Query($args);
+
+  if (!$query->have_posts()) {
+    // Page does not exist, create it
+    $new_page_id = wp_insert_post(array(
+      'post_title'    => $page_title,
+      'post_content'  => $page_content,
+      'post_status'   => 'publish',
+      'post_type'     => 'page',
+    ));
+  }
+}
