@@ -25,9 +25,12 @@ function custom_event_renderer_shortcode($atts)
 ?>
         <div class="event">
           <h2><?php echo get_the_title($post); ?></h2>
-          <div class="featured-image">
-            <?php echo get_the_post_thumbnail($post, 'full'); ?>
-          </div>
+          <!-- if feature image exists -->
+          <?php if (has_post_thumbnail($post)) : ?>
+            <div class="featured-image" style="width: 100%;">
+              <img src="<?php echo get_the_post_thumbnail_url($post); ?>" alt="<?php echo get_the_title($post); ?>" style="width: 100%;">
+            </div>
+          <?php endif; ?>
           <div class="content">
             <?php echo apply_filters('the_content', $post->post_content); ?>
           </div>
