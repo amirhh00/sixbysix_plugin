@@ -326,9 +326,9 @@ function sixonesix_calendar_page()
         if (eventId && eventId !== 'undefined') {
           const events = JSON.parse(eventId);
           const allEvents = <?php echo json_encode($allEvents); ?>;
-          alert(`Events for ${date}: ${events.map(eId => allEvents.find(e => e.ID === eId).post_title).join(', ')}`);
+          window.open('<?php echo $HOSTNAME; ?>/events?ids=' + events.map(eId => allEvents.find(e => e.ID === eId).ID).join(','));
         } else {
-          alert(`No events for ${date}`);
+          // alert(`No events for ${date}`);
         }
       <?php endif; ?>
     }
