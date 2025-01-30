@@ -111,7 +111,7 @@ function sixonesix_calendar_page()
       </button>
     </div>
     <br>
-    <div id="daysinweek" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;">
+    <div id="daysinweek" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; max-width: 100%; overflow-x: auto;">
       <div style="text-align: center;">Sunday</div>
       <div style="text-align: center;">Monday</div>
       <div style="text-align: center;">Tuesday</div>
@@ -546,6 +546,8 @@ function sixonesix_calendar_page()
       background-clip: padding-box;
       background-color: white;
       border: 4px solid white;
+      max-width: 100%;
+      overflow-x: auto;
     }
 
     #calendar * {
