@@ -11,6 +11,7 @@ function custom_event_renderer_shortcode($atts)
     // Fetch the posts
     $posts = get_posts(array(
       'post__in' => $ids,
+      'post_status'    => array('publish', 'future'),
       'post_type' => 'event', // Change to your custom post type if needed
       'orderby' => 'post__in', // Preserve the order of IDs
     ));

@@ -12,6 +12,7 @@ function display_custom_posts()
   // Set up query arguments
   $args = array(
     'post_type' => 'event',
+    'post_status'    => array('publish', 'future'),
     'posts_per_page' => $posts_per_page,
     'paged' => $pageNumber,
   );

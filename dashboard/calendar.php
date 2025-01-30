@@ -29,6 +29,7 @@ function sixonesix_calendar_page()
   $background_image = get_option("sixonesix_calendar_background_$currentMonth-$currentYear");
   $allEvents = get_posts(array(
     'post_type' => 'event',
+    'post_status'    => array('publish', 'future'),
     'numberposts' => -1
   ));
   foreach ($allEvents as &$event) {
@@ -732,6 +733,12 @@ add_action('rest_api_init', function () use ($REST_API_BASE) {
       )
     )
   ));
+  // register the route to get last n (default 3) calendar data
+  register_rest_route($REST_API_BASE, '/calendar/latest', array(
+    'methods' => 'GET',
+    'callback' => 'getlastnCalendarData',
+    'permission_callback' => '__return_true'
+  ));
 });
 
 /** 
@@ -803,4 +810,29 @@ function getAllCalendarDataOnSundays()
     $currentDate->modify('+1 day');
   }
   return $calendarData;
+}
+
+/**
+ * get last n calendar data
+ * @param n: the number of calendar data to get default 3
+ * @return array of calendar data
+ */
+function getlastnCalendarData(WP_REST_Request $request)
+{
+  $n = $request->get_param('n') ? $request->get_param('n') : 3;
+  $calendarData = array();
+
+  $currentDate = new DateTime(date('Y-01-01', strtotime('-1 year')));
+  $endOfNextYear = new DateTime(date('Y-12-31', strtotime('+1 year')));
+
+  while ($currentDate <= $endOfNextYear && $n > 0) {
+    $event_id = get_option('sixonesix_calendar_' . $currentDate->format('Y-m-d'));
+    if ($event_id) {
+      $calendarData[$currentDate->format('Y-m-d')] = $event_id;
+      $n--;
+    }
+    $currentDate->modify('+1 day');
+  }
+
+  return rest_ensure_response($calendarData);
 }

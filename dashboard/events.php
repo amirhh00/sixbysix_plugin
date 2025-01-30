@@ -130,3 +130,37 @@ if (!empty($artists)) {
     echo esc_html($artist->display_name) . '<br>';
   }
 }
+
+// a rest api enpoint to get last n events open to public
+add_action('rest_api_init', function () {
+  register_rest_route('sixonesix/v1', '/incomingevents', array(
+    'methods' => 'GET',
+    'callback' => 'get_last_n_events',
+    'permission_callback' => '__return_true'
+  ));
+});
+
+function get_last_n_events($data)
+{
+  $n = $data['n'] ?? 3;
+
+  $args = array(
+    'post_type' => 'event',
+    'posts_per_page' => $n,
+    'post_status'    => array('future'),
+    'orderby' => 'date',
+    'order' => 'ASC',
+    'meta_query' => array(
+      array(
+        'key' => 'artists',
+        'compare' => 'EXISTS'
+      )
+    )
+  );
+
+  $events = get_posts($args);
+  foreach ($events as $key => $event) {
+    $events[$key]->featured_image = get_the_post_thumbnail_url($event->ID, 'full');
+  }
+  return new WP_REST_Response($events, 200);
+}
