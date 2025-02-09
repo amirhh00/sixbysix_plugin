@@ -162,7 +162,8 @@ function get_last_n_events($data)
   foreach ($events as $key => $event) {
     $events[$key]->featured_image = get_the_post_thumbnail_url($event->ID, 'full');
   }
-  header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_ORIGIN']);
+  $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '*';
+  header("Access-Control-Allow-Origin: $referer");
   header("Access-Control-Allow-Methods: GET");
   header("Access-Control-Allow-Headers: Content-Type");
 
