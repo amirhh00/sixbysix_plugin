@@ -162,5 +162,10 @@ function get_last_n_events($data)
   foreach ($events as $key => $event) {
     $events[$key]->featured_image = get_the_post_thumbnail_url($event->ID, 'full');
   }
+  // cors headers
+  header("Access-Control-Allow-Origin: *");
+  header("Access-Control-Allow-Methods: GET");
+  header("Access-Control-Allow-Headers: Content-Type");
+
   return new WP_REST_Response($events, 200);
 }
