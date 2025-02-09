@@ -162,8 +162,10 @@ function get_last_n_events($data)
   foreach ($events as $key => $event) {
     $events[$key]->featured_image = get_the_post_thumbnail_url($event->ID, 'full');
   }
-  // cors headers
-  header("Access-Control-Allow-Origin: *");
+
+  header("Access-Control-Allow-Origin: http://localhost:5173");
+  header("Access-Control-Allow-Origin: https://clubxq.com");
+  header("Access-Control-Allow-Origin: https://sixonesixchester.com");
   header("Access-Control-Allow-Methods: GET");
   header("Access-Control-Allow-Headers: Content-Type");
 
