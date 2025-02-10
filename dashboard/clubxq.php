@@ -90,11 +90,15 @@ function sixonesix_clubxq_page()
       <select name="form7_form_id" id="form7_form_id">
         <?php
         foreach ($form7_forms as $form) {
-          echo "<option value='{$form['id']}'>{$form['title']}</option>";
+          echo "<option value='{$form['id']}'";
+          if ($form['id'] == get_option('sixonesix_clubxq_form7_form_id')) {
+            echo " selected";
+          }
+          echo ">{$form['title']}</option>";
         }
         ?>
       </select>
-      <button class="p-2 border cursor-pointer border-black hover:bg-black hover:text-white" type="submit">Integrate</button>
+      <button class="p-2 border cursor-pointer border-black hover:bg-black hover:text-white" type="submit">Save</button>
     </form>
   <?php
   } else {
