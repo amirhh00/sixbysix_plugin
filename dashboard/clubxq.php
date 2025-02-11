@@ -336,6 +336,7 @@ add_action('rest_api_init', function () {
   register_rest_route('sixonesix/v1', '/clubxq', array(
     'methods' => 'GET',
     'callback' => 'sixonesix_get_clubxq_options',
+    'permission_callback' => '__return_true',
   ));
 });
 
