@@ -39,6 +39,8 @@ footer.site-footer .c-footer__zone:not(:empty)+.c-footer__zone {
 	max-width: 1264px;
 	gap: 20px;
 	color: white;
+	font-family: "Woodford Bourne";
+	font-size: larger;
 }
 
 #newsletter p {
@@ -76,7 +78,7 @@ footer.site-footer .c-footer__zone:not(:empty)+.c-footer__zone {
 	border: 1px solid currentColor;
 	text-decoration: none;
 	transition: all 0.7s;
-	padding: 16px;
+	padding: 0px 36px;
 	text-align: center;
 	width: auto !important;
 	text-decoration: none !important;
@@ -128,10 +130,9 @@ footer.site-footer .c-footer__zone:not(:empty)+.c-footer__zone {
 	cursor: pointer;
 	padding: 8px 24px;
 	text-align: center;
-	font-size: 14px;
+	font-size: 24px;
 	color: white;
 	text-transform: uppercase;
-	text-decoration: none;
 	text-decoration: none;
 }
 
