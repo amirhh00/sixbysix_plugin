@@ -79,7 +79,7 @@ footer.site-footer .c-footer__zone:not(:empty)+.c-footer__zone {
 	padding: 16px;
 	text-align: center;
 	width: auto !important;
-	text-decoration: none;
+	text-decoration: none !important;
 	color: #fff;
 }
 
