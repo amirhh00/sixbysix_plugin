@@ -83,7 +83,7 @@ function add_button_to_footer_on_homepage()
     <div id="newsletter">
       <p>$newsLetterText</p>
       
-      <a style="color:black" href="/newsletter" class="btn btn-reverted custom-button">
+      <a href="/newsletter" class="custom-button">
         <span class="button-border">
             <span class="border-left"></span>
             <span class="border-right"></span>

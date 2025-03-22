@@ -38,12 +38,13 @@ footer.site-footer .c-footer__zone:not(:empty)+.c-footer__zone {
 	text-align: center;
 	max-width: 1264px;
 	gap: 20px;
+	color: white;
 }
 
 #newsletter p {
 	flex: 1;
 	margin: 0;
-	color: black;
+	color: currentColor;
 }
 
 #newsletter .btn {
@@ -79,11 +80,6 @@ footer.site-footer .c-footer__zone:not(:empty)+.c-footer__zone {
 	width: auto !important;
 }
 
-.custom-button:hover {
-	color: #3498db;
-	/* Change to your primary color */
-}
-
 .button-border {
 	position: absolute;
 	top: 50%;
@@ -94,7 +90,7 @@ footer.site-footer .c-footer__zone:not(:empty)+.c-footer__zone {
 	transform: translate(-50%, -50%);
 	justify-content: space-between;
 	overflow: hidden;
-	border: 1px solid black;
+	border: 1px solid white;
 }
 
 .border-left,
@@ -127,7 +123,7 @@ footer.site-footer .c-footer__zone:not(:empty)+.c-footer__zone {
 	position: relative;
 	z-index: 1;
 	cursor: pointer;
-	padding: 16px;
+	padding: 8px 24px;
 	text-align: center;
 	font-size: 14px;
 	color: white;
