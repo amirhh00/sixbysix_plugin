@@ -1,163 +1,163 @@
 .u-content-background {
-  background-color: black;
-  color: white;
+	background-color: black;
+	color: white;
 }
 
 .u-content-background .entry-title {
-  text-align: center;
-  color: white;
+	text-align: center;
+	color: white;
 }
 
 .accordion-content {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
 }
 
 .accordion-item {
-  outline: none;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  width: 100%;
-  padding-left: 0;
+	outline: none;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	width: 100%;
+	padding-left: 0;
 }
 
 .accordion-item .artistWrapper {
-  background: #c4b483;
-  padding: 3px;
+	background: var(--sm-color-primary, #b38d51);
+	padding: 3px;
 }
 
 .accordion-item .artist {
-  display: flex;
-  justify-content: space-between;
-  padding: 15px;
-  background-color: black;
-  color: white;
-  list-style-type: none;
-  gap: 30px;
-  border-radius: 32px;
+	display: flex;
+	justify-content: space-between;
+	padding: 15px;
+	background-color: black;
+	color: white;
+	list-style-type: none;
+	gap: 30px;
+	border-radius: 32px;
 }
 
 .accordion-item .artist .artistPicture {
-  width: 150px;
-  height: 150px;
-  border: 2px solid #c4b483;
-  border-radius: 20px;
+	width: 150px;
+	height: 150px;
+	border: 2px solid var(--sm-color-primary, #b38d51);
+	border-radius: 20px;
 }
 
 .accordion-item .artist .artistInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1;
-  justify-content: space-between;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	flex: 1;
+	justify-content: space-between;
 }
 
 .accordion-item .artist .artistInfo p {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 .accordion-item .artist .artistInfo * {
-  color: white;
+	color: white;
 }
 
 .accordion-item .artist .artistInfo .artistName {
-  font-size: 1.5em;
-  font-weight: 700;
-  text-transform: capitalize;
-  margin-top: 10px;
+	font-size: 1.5em;
+	font-weight: 700;
+	text-transform: capitalize;
+	margin-top: 10px;
 }
 
 .accordion-item .artist .artistLinks {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
 }
 
 .accordion-item .artist .artistLinks:hover {
-  color: #c4b483;
+	color: var(--sm-color-primary, #b38d51);
 }
 
 @media (max-width: 650px) {
-  .accordion-item .artist {
-    flex-direction: column;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-  }
-  .accordion-item .artist .artistPicture {
-    width: 180px;
-    height: 180px;
-    border-radius: 20px;
-  }
-  .accordion-item .artist .artistInfo {
-    gap: 0px;
-  }
-  .accordion-item .artist .artistLinks {
-    flex-direction: column;
-    justify-content: start;
-    align-items: flex-start;
-  }
+	.accordion-item .artist {
+		flex-direction: column;
+		gap: 10px;
+		justify-content: center;
+		align-items: center;
+	}
+	.accordion-item .artist .artistPicture {
+		width: 180px;
+		height: 180px;
+		border-radius: 20px;
+	}
+	.accordion-item .artist .artistInfo {
+		gap: 0px;
+	}
+	.accordion-item .artist .artistLinks {
+		flex-direction: column;
+		justify-content: start;
+		align-items: flex-start;
+	}
 }
 
 .accordion-item .artist .artistLinks a {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  text-decoration: none;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	text-decoration: none;
 }
 
 /* accordion */
 .accordion {
-  margin-bottom: 24px;
-  width: 100%;
+	margin-bottom: 24px;
+	width: 100%;
 }
 
 .accordion-container {
-  width: 90%;
-  max-width: 1240px;
-  margin: 0 auto;
-  border: 3px solid #e0e0e0;
-  border-radius: 24px;
-  overflow: hidden;
+	width: 90%;
+	max-width: 1240px;
+	margin: 0 auto;
+	border: 3px solid #e0e0e0;
+	border-radius: 24px;
+	overflow: hidden;
 }
 
 .accordion-trigger {
-  width: 100%;
-  display: block;
-  background-color: transparent;
-  color: currentColor;
-  padding: 24px 0;
-  font-size: 20px;
-  font-weight: 500;
-  font-family: "Inter", sans-serif;
-  text-align: left;
-  border: none;
-  display: flex;
-  gap: 16px;
-  justify-content: space-between;
-  cursor: pointer;
-  outline: none;
+	width: 100%;
+	display: block;
+	background-color: transparent;
+	color: currentColor;
+	padding: 24px 0;
+	font-size: 20px;
+	font-weight: 500;
+	font-family: "Inter", sans-serif;
+	text-align: left;
+	border: none;
+	display: flex;
+	gap: 16px;
+	justify-content: space-between;
+	cursor: pointer;
+	outline: none;
 }
 
 .accordion-icon {
-  transition: transform 0.5s;
+	transition: transform 0.5s;
 }
 
 .accordion-item[open] .accordion-icon {
-  transform: rotate(45deg);
+	transform: rotate(45deg);
 }
 
 .accordion-item:not(:first-of-type) .accordion-trigger {
-  border-top: 3px solid #eaeaea;
+	border-top: 3px solid #eaeaea;
 }
 
 .accordion-item[open] .artistWrapper:last-child {
-  margin-bottom: 30px;
+	margin-bottom: 30px;
 }
 
 .accordion-item summary::-webkit-details-marker {
-  display: none;
+	display: none;
 }
