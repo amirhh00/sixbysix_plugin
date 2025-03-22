@@ -76,6 +76,7 @@ footer.site-footer .c-footer__zone:not(:empty)+.c-footer__zone {
 	transition: all 0.7s;
 	padding: 16px;
 	text-align: center;
+	width: auto !important;
 }
 
 .custom-button:hover {
