@@ -69,6 +69,7 @@ footer.site-footer .c-footer__zone:not(:empty)+.c-footer__zone {
 .custom-button {
 	position: relative;
 	display: grid;
+	color: white;
 	width: 100%;
 	cursor: pointer;
 	grid-template-columns: 1fr;
@@ -78,6 +79,8 @@ footer.site-footer .c-footer__zone:not(:empty)+.c-footer__zone {
 	padding: 16px;
 	text-align: center;
 	width: auto !important;
+	text-decoration: none;
+	color: #fff;
 }
 
 .button-border {
@@ -128,6 +131,7 @@ footer.site-footer .c-footer__zone:not(:empty)+.c-footer__zone {
 	font-size: 14px;
 	color: white;
 	text-transform: uppercase;
+	text-decoration: none;
 	text-decoration: none;
 }
 
