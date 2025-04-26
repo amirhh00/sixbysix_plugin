@@ -8,11 +8,6 @@
 	z-index: 9999999;
 }
 
-.floating_booking:hover {
-	color: black !important;
-	background: var(--sm-color-primary, #b38d51) !important;
-}
-
 footer.site-footer {
 	padding-bottom: 90px;
 }
