@@ -4,9 +4,7 @@
 	left: 50%;
 	transform: translateX(-50%);
 	cursor: pointer;
-	padding: 15px 20px;
 	transition: all 0.2s ease;
-	background-color: #000 !important;
 	z-index: 9999999;
 }
 
