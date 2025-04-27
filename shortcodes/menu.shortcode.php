@@ -5,6 +5,7 @@ function menus_shortcode($atts, $content = null)
   $attributes = shortcode_atts(array(
     'class' => '',
     'id' => '',
+    'exclusive' => 'no', // Default to showing only non-exclusive menus
   ), $atts);
 
   $class = $attributes['class'] ? ' class="' . esc_attr($attributes['class']) . '"' : '';
@@ -18,6 +19,33 @@ function menus_shortcode($atts, $content = null)
     'order' => 'ASC'
   );
 
+  // Add meta query based on exclusive attribute
+  if ($attributes['exclusive'] === 'yes') {
+    $args['meta_query'] = array(
+      array(
+        'key' => 'exclusive_menu',
+        'value' => '1',
+        'compare' => '='
+      )
+    );
+  } elseif ($attributes['exclusive'] !== 'all') {
+    // Default behavior - show only non-exclusive menus
+    $args['meta_query'] = array(
+      array(
+        'relation' => 'OR',
+        array(
+          'key' => 'exclusive_menu',
+          'value' => '1',
+          'compare' => '!='
+        ),
+        array(
+          'key' => 'exclusive_menu',
+          'compare' => 'NOT EXISTS'
+        )
+      )
+    );
+  }
+
   $query = new WP_Query($args);
   $menu_items = [];
 
@@ -30,7 +58,8 @@ function menus_shortcode($atts, $content = null)
         'days' => get_post_meta($post_id, 'days_available', true),
         'time' => get_post_meta($post_id, 'time_available', true),
         'link' => get_post_meta($post_id, 'link', true),
-        'button_text' => get_post_meta($post_id, 'button_text', true) ?: 'View Menu'
+        'button_text' => get_post_meta($post_id, 'button_text', true) ?: 'View Menu',
+        'exclusive' => get_post_meta($post_id, 'exclusive_menu', true)
       ];
     }
     wp_reset_postdata();

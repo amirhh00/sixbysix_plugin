@@ -128,7 +128,20 @@ function render_menu_item_meta_box($post)
     .media-buttons {
       margin-top: 8px;
     }
+
+    .checkbox-field label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
   </style>
+
+  <div class="menu-item-meta-field checkbox-field">
+    <label for="exclusive_menu">
+      <input type="checkbox" id="exclusive_menu" name="exclusive_menu" value="1" <?php checked(get_post_meta($post->ID, 'exclusive_menu', true), '1'); ?> />
+      Mark as Exclusive Menu
+    </label>
+  </div>
 
   <div class="menu-item-meta-field">
     <label for="days_available">Days Available:</label>
@@ -241,5 +254,6 @@ function save_menu_item_meta_box_data($post_id)
   if (isset($_POST['button_text'])) {
     update_post_meta($post_id, 'button_text', sanitize_text_field($_POST['button_text']));
   }
+  update_post_meta($post_id, 'exclusive_menu', isset($_POST['exclusive_menu']) ? '1' : '0');
 }
 add_action('save_post', 'save_menu_item_meta_box_data');
