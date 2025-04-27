@@ -114,7 +114,7 @@ function menus_shortcode($atts, $content = null)
 }
 
 #sixbysixMenus ul li.menu-item:hover {
-    background-color: var(--ast-global-color-6, black);
+    background-color: var(--ast-global-color-8, black);
     cursor: pointer;
 }
 </style>
