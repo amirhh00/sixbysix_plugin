@@ -12,7 +12,7 @@ footer.site-footer {
 	padding-bottom: 90px;
 }
 
-footer.site-footer .c-footer__zone:not(:empty)+.c-footer__zone {
+footer.site-footer .c-footer__zone:not(:empty) + .c-footer__zone {
 	margin-top: 40px;
 }
 
@@ -29,7 +29,7 @@ footer.site-footer .c-footer__zone:not(:empty)+.c-footer__zone {
 	text-align: center;
 	max-width: 1264px;
 	gap: 20px;
-	color: white;
+	color: var(--ast-global-color-5, white);
 	font-family: "Woodford Bourne";
 	font-size: larger;
 	font-weight: 100;
@@ -38,7 +38,7 @@ footer.site-footer .c-footer__zone:not(:empty)+.c-footer__zone {
 #newsletter p {
 	flex: 1;
 	margin: 0;
-	color: currentColor;
+	color: var(--ast-global-color-5, white);
 }
 
 #newsletter .btn {
