@@ -23,8 +23,8 @@ function add_button_to_footer_on_homepage()
     $popupContentElement = <<<HTML
     <dialog id="popup_newsletter" style="color:var(--ast-global-color-5, white);background: transparent;padding: 0px;  min-width: 300px;max-width: 800px;width: 65%;border-color:#b38d51">
       <div style="display: flex;padding: 36px;flex-direction: column;gap: 12px;background: url('$popupContentBg') black;">
-        <p style="color:currentColor;margin:0; font-size: calc(2rem + (56 - 32) * ((100vw - 23.4375rem) / (1920 - 375)));">Sign up to our newsletter.</p>
-        <p style="margin:0;">As a thank you for subscribing, you'll get early access to events and exclusive information, as well as entry into our monthly prize draw to win a £100 Six One Six gift card.</p>
+        <p style="color:currentColor;margin:0; font-size: calc(2rem + (56 - 32) * ((100vw - 23.4375rem) / (1920 - 375))); text-align: center">Sign up to our newsletter.</p>
+        <p class="text-center" style="margin:0;">As a thank you for subscribing, you'll get early access to events and exclusive information, as well as entry into our monthly prize draw to win a £100 Six One Six gift card.</p>
         <a href="/newsletter" class="btn btn-hover">
           ENTER NOW
         </a>
