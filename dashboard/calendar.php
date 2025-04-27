@@ -419,6 +419,8 @@ function sixonesix_calendar_page()
                       day.style.mixBlendMode = 'unset';
                     }
                   });
+                  // clear the bg with a fake image src
+                  uploadButton.style.backgroundImage = `url(https://placehold.co/600x400?text=select_image)`;
                 }
               <?php endif; ?>
 
