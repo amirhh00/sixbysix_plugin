@@ -4,7 +4,7 @@
 
 .u-content-background .entry-title {
 	text-align: center;
-	color: var(--ast-global-color-6, white);
+	color: var(--ast-global-color-5, white);
 }
 
 #sixbysixMenus {
@@ -19,7 +19,8 @@
 	padding: 0;
 	box-sizing: border-box;
 	outline: none;
-	color: var(--ast-global-color-6, white);
+	color: var(--ast-global-color-5, white);
+	transition: all 0.2s ease-in;
 }
 
 #sixbysixMenus ul {
@@ -49,8 +50,7 @@
 	padding: 0.5rem 1rem;
 	gap: 0.5rem;
 	text-align: center;
-	transition: all 0.2s ease-in;
-	background-color: black;
+	background-color: var(--ast-global-color-0, #c2b276);
 }
 
 #sixbysixMenus ul .menu-item div {
@@ -63,17 +63,11 @@
 	font-weight: 700;
 	white-space: nowrap;
 	text-decoration: none;
-	transition: all 0.2s ease-in;
 	margin: 0 auto;
 	border-bottom: 2px solid transparent;
 }
 
 #sixbysixMenus ul li.menu-item:hover {
-	background-color: var(--ast-global-color-0, #c2b276);
+	background-color: var(--ast-global-color-6, black);
 	cursor: pointer;
-	color: black !important;
-}
-
-#sixbysixMenus ul li.menu-item:hover * {
-	color: black !important;
 }
