@@ -21,8 +21,8 @@ function register_menu_post_type()
     'public' => true,
     'has_archive' => true,
     'rewrite' => array('slug' => 'menu-items'),
-    'supports' => array('title', 'page-attributes'), // Support title and page attributes for ordering
-    'show_in_rest' => false,
+    'supports' => array('title', 'editor', 'thumbnail', 'page-attributes'), // Added editor support
+    'show_in_rest' => true,
     'menu_icon' => 'dashicons-food',
     'publicly_queryable' => true,
     'show_ui'            => true,
@@ -31,6 +31,7 @@ function register_menu_post_type()
     'capability_type'    => 'post',
     'hierarchical'       => true, // Enable ordering
     'menu_position'      => null,
+    'taxonomies'         => array('category', 'post_tag'),
   );
 
   register_post_type('menu_item', $args);
