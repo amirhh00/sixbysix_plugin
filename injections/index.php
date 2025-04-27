@@ -101,8 +101,8 @@ function add_button_to_footer_on_homepage()
       </a>
     </div>
     <div
-      class="absolute top-0 left-0 w-full h-full bg-contain bg-repeat bg-center opacity-15 mix-blend-color-dodge"
-      style="background-image: url('$imageUrl'); background-size:56px" >
+      class="absolute top-0 left-0 w-full h-full bg-contain bg-repeat bg-center opacity-10 mix-blend-color-dodge"
+      style="background-image: url('$imageUrl'); background-size:36px" >
   </div>
   </div>
   HTML;
