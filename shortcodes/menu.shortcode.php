@@ -175,7 +175,7 @@ HTML;
                 <p>{$item['time']}</p>
             </div>
             <a href="{$item['link']}"{$target}>{$item['button_text']}</a>
-            <div class="absolute top-0 left-0 w-full h-full bg-black" style="opacity:0.07; background-size: 290px; background-image: url('{$menu_bg_url}');"></div>
+            <div class="absolute top-0 left-0 w-full h-full bg-black" style="opacity:0.05; background-size: 290px; background-image: url('{$menu_bg_url}');"></div>
         </li>
 HTML;
   }
