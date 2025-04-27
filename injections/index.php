@@ -81,13 +81,15 @@ function add_button_to_footer_on_homepage()
 
   echo $sevenRoomsScript;
 
+  // load image
+  $imageUrl = get_option('sixonesix_newsletter_image', plugin_dir_url(__FILE__) . 'images/Mexican-Pattern-Transparent.png');
+
   $newsLetterBtnText = get_option('sixonesix_newsletter_btn_text', 'NewsLetter Signup');
   $newsLetterText = get_option('sixonesix_newsletter_text', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, obcaecati laboriosam magnam reiciendis blanditiis iure aliquid modi officiis deleniti');
   $newsLetterElement = <<<HTML
-  <div style="width: 100vw; max-width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);" id="newsletter_wrapper">
+  <div class="relative" style="width: 100vw; max-width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);" id="newsletter_wrapper"> 
     <div id="newsletter">
       <p>$newsLetterText</p>
-      
       <a href="/newsletter" class="custom-button">
         <span class="button-border">
             <span class="border-left"></span>
@@ -98,6 +100,10 @@ function add_button_to_footer_on_homepage()
         </div>
       </a>
     </div>
+    <div
+      class="absolute top-0 left-0 w-full h-full bg-contain bg-repeat bg-center opacity-15 mix-blend-color-dodge"
+      style="background-image: url('$imageUrl'); background-size:56px" >
+  </div>
   </div>
   HTML;
 
