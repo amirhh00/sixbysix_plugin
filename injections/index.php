@@ -60,7 +60,7 @@ function add_button_to_footer_on_homepage()
 
   $sevenRoomsScript = <<<HTML
     <div class="uagb-ifb-button-wrapper wp-block-button floating_booking">
-      <a href="#" class="uagb-infobox-cta-link wp-block-button__link" target="_self" rel="noopener noreferrer" onclick="return false;">
+      <a style="padding-left:45px; padding-right:45px" href="#" class="uagb-infobox-cta-link wp-block-button__link" target="_self" rel="noopener noreferrer" onclick="return false;">
         <span class="uagb-inline-editing">$button_text</span></a>
     </div>
     <!-- <div id="sr-res-root" class="floating_booking btn">
