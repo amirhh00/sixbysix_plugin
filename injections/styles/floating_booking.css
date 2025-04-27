@@ -63,18 +63,17 @@ footer.site-footer .c-footer__zone:not(:empty) + .c-footer__zone {
 .custom-button {
 	position: relative;
 	display: grid;
-	color: white;
+	color: var(--ast-global-color-5, white);
 	width: 100%;
 	cursor: pointer;
 	grid-template-columns: 1fr;
-	border: 1px solid white;
+	border: 1px solid var(--ast-global-color-5, white);
 	text-decoration: none;
 	transition: all 0.7s;
 	padding: 0px 36px;
 	text-align: center;
 	width: auto !important;
 	text-decoration: none !important;
-	color: #fff;
 }
 
 .button-border {
@@ -87,7 +86,7 @@ footer.site-footer .c-footer__zone:not(:empty) + .c-footer__zone {
 	transform: translate(-50%, -50%);
 	justify-content: space-between;
 	overflow: hidden;
-	border: 1px solid white;
+	border: 1px solid var(--ast-global-color-5, white);
 }
 
 .border-left,
@@ -95,7 +94,7 @@ footer.site-footer .c-footer__zone:not(:empty) + .c-footer__zone {
 	position: absolute;
 	height: 100%;
 	width: 51%;
-	background-color: black;
+	background-color: var(--ast-global-color-5, white);
 	transition: transform 0.7s;
 }
 
@@ -122,10 +121,16 @@ footer.site-footer .c-footer__zone:not(:empty) + .c-footer__zone {
 	cursor: pointer;
 	padding: 8px 24px;
 	text-align: center;
-	color: white;
+	color: var(--ast-global-color-5, white);
 	text-transform: uppercase;
+	position: relative;
 	text-decoration: none;
 	font-size: inherit;
+}
+
+.button-text:hover {
+	/* mix-blend-mode: difference; */
+	color: var(--ast-global-color-0, #b38d51);
 }
 
 @media not screen and (min-width: 50em) {

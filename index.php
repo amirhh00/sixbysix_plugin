@@ -5,7 +5,7 @@
  * Description:       Registers custom shortcodes and helper functions.
  * Requires at least: 6.1
  * Requires PHP:      7.0
- * Version:           1.3.12
+ * Version:           1.3.13
  * Author:            Amirhossein
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
