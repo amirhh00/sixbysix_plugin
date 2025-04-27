@@ -46,6 +46,9 @@ function menus_shortcode($atts, $content = null)
     );
   }
 
+  // load background image from /images/ folder
+  $menu_bg_url = plugin_dir_url(__FILE__) . 'images/menus-bg-pattern.png';
+
   $query = new WP_Query($args);
   $menu_items = [];
 
@@ -152,6 +155,7 @@ function menus_shortcode($atts, $content = null)
 </style>
 CSS;
 
+
   // Build HTML output using heredoc syntax
   $html = <<<HTML
 <div id="sixbysixMenus">
@@ -164,13 +168,14 @@ HTML;
     $target = (!empty($item['link']) && $item['link'] !== '#') ? ' target="_blank"' : '';
 
     $html .= <<<HTML
-        <li class="menu-item"{$onclick}>
+        <li class="menu-item relative"{$onclick}>
             <h3>{$item['name']}</h3>
             <div>
                 <p>{$item['days']}</p>
                 <p>{$item['time']}</p>
             </div>
             <a href="{$item['link']}"{$target}>{$item['button_text']}</a>
+            <div class="absolute top-0 left-0 w-full h-full bg-black" style="opacity:0.1; background-size: 150px; background-image: url('{$menu_bg_url}');"></div>
         </li>
 HTML;
   }
