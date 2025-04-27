@@ -5,7 +5,7 @@
  * Description:       Registers custom shortcodes and helper functions.
  * Requires at least: 6.1
  * Requires PHP:      7.0
- * Version:           1.3.8
+ * Version:           1.3.9
  * Author:            Amirhossein
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -16,6 +16,8 @@
  * 
  * @package CreateBlock
  */
+
+// the menu single post type should be manually registered in the theme root folder
 
 require_once plugin_dir_path(__FILE__) . 'shortcodes/index.php';
 require_once plugin_dir_path(__FILE__) . 'dashboard/index.php';

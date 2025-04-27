@@ -8,8 +8,9 @@ function enqueue_injected_footer_style()
 }
 add_action('wp_enqueue_scripts', 'enqueue_injected_footer_style', 5); // Lower priority number to load earlier
 
-// Hook into the 'wp_footer' action
-add_action('wp_footer', 'add_button_to_footer_on_homepage');
+// Hook into before footer
+add_action('wp_footer', 'add_button_to_footer_on_homepage', 5); // Lower priority number to load earlier
+
 
 function add_button_to_footer_on_homepage()
 {
@@ -83,7 +84,7 @@ function add_button_to_footer_on_homepage()
   $newsLetterBtnText = get_option('sixonesix_newsletter_btn_text', 'NewsLetter Signup');
   $newsLetterText = get_option('sixonesix_newsletter_text', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, obcaecati laboriosam magnam reiciendis blanditiis iure aliquid modi officiis deleniti');
   $newsLetterElement = <<<HTML
-  <div id="newsletter_wrapper">
+  <div style="width: 100vw; max-width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);" id="newsletter_wrapper">
     <div id="newsletter">
       <p>$newsLetterText</p>
       
