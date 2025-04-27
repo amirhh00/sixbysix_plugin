@@ -43,7 +43,7 @@ function sixonesix_calendar_page()
     <?php if ($is_admin_dashboardPage) : ?>
       <button class="button"
         id="upload-background">
-        <p style="color: white; background-color: rgba(0, 0, 0, 0.5);">
+        <p style="color: var(--ast-global-color-5, white); background-color: rgba(0, 0, 0, 0.5);">
           <?php echo $background_image ? 'Change' : 'Upload'; ?> Calendar Background
         </p>
         <!-- delete background for this month -->
@@ -546,8 +546,8 @@ function sixonesix_calendar_page()
       background-image: url('<?php echo esc_url($background_image); ?>');
       background-size: cover;
       background-clip: padding-box;
-      background-color: white;
-      border: 4px solid white;
+      background-color: var(--ast-global-color-5, white);
+      border: 4px solid var(--ast-global-color-5, white);
       max-width: 100%;
       overflow-x: auto;
     }
@@ -560,13 +560,13 @@ function sixonesix_calendar_page()
     .day:not([data-bgurl]) {
       background-color: black;
       font-size: xx-large;
-      color: white;
+      color: var(--ast-global-color-5, white);
     }
 
     .day,
     .empty {
       padding: 10px;
-      border: 4px solid white;
+      border: 4px solid var(--ast-global-color-5, white);
       text-align: center;
       aspect-ratio: 1;
     }
@@ -580,7 +580,7 @@ function sixonesix_calendar_page()
     }
 
     .day.empty {
-      background-color: white !important;
+      background-color: var(--ast-global-color-5, white) !important;
     }
 
     .day:not(.empty) {
@@ -626,7 +626,7 @@ function sixonesix_calendar_page()
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      background-color: white;
+      background-color: var(--ast-global-color-5, white);
     }
 
     #event {
