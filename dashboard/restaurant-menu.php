@@ -82,23 +82,130 @@ function render_menu_item_meta_box($post)
   // Nonce field for security
   wp_nonce_field('save_menu_item_meta_box_data', 'menu_item_meta_box_nonce');
 
-  $output = <<<HTML
-  <label for="days_available">Days Available:</label>
-  <input type="text" id="days_available" name="days_available" value="$days_available" size="25" />
+  // Enqueue WordPress media scripts
+  wp_enqueue_media();
 
-  <label for="time_available">Time Available:</label>
-  <input type="text" id="time_available" name="time_available" value="$time_available" size="25" />
+?>
+  <style>
+    .menu-item-meta-field {
+      margin-bottom: 15px;
+    }
 
-  <label for="link">Link:</label>
-  <input type="text" id="link" name="link" value="$link" size="25" />
+    .menu-item-meta-field label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
 
-  <!-- a new one for button text -->
-  <label for="button_text">Button Text:</label>
-  <input type="text" id="button_text" name="button_text" value="$button_text" size="25" />
+    .menu-item-meta-field input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+    }
 
-HTML;
+    .media-preview {
+      margin-top: 10px;
+      max-width: 200px;
+    }
 
-  echo $output;
+    .media-preview img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #eee;
+      padding: 3px;
+    }
+
+    .pdf-preview {
+      display: inline-block;
+      padding: 10px;
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .media-buttons {
+      margin-top: 8px;
+    }
+  </style>
+
+  <div class="menu-item-meta-field">
+    <label for="days_available">Days Available:</label>
+    <input type="text" id="days_available" name="days_available" value="<?php echo esc_attr($days_available); ?>" />
+  </div>
+
+  <div class="menu-item-meta-field">
+    <label for="time_available">Time Available:</label>
+    <input type="text" id="time_available" name="time_available" value="<?php echo esc_attr($time_available); ?>" />
+  </div>
+
+  <div class="menu-item-meta-field">
+    <label for="link">Menu File (Image or PDF):</label>
+    <input type="text" id="link" name="link" value="<?php echo esc_attr($link); ?>" readonly />
+    <div class="media-buttons">
+      <button type="button" class="button" id="upload_file_button">Upload File</button>
+      <button type="button" class="button" id="remove_file_button" <?php echo empty($link) ? 'style="display:none;"' : ''; ?>>Remove File</button>
+    </div>
+    <div id="media_preview" class="media-preview">
+      <?php if (!empty($link)):
+        $file_type = wp_check_filetype($link);
+        if (strpos($file_type['type'], 'image') !== false): ?>
+          <img src="<?php echo esc_url($link); ?>" alt="Menu preview" />
+        <?php elseif ($file_type['ext'] == 'pdf'): ?>
+          <div class="pdf-preview">
+            <span class="dashicons dashicons-pdf"></span> PDF File Selected
+          </div>
+        <?php endif; ?>
+      <?php endif; ?>
+    </div>
+  </div>
+
+  <div class="menu-item-meta-field">
+    <label for="button_text">Button Text:</label>
+    <input type="text" id="button_text" name="button_text" value="<?php echo esc_attr($button_text); ?>" />
+  </div>
+
+  <script>
+    jQuery(document).ready(function($) {
+      $('#upload_file_button').click(function() {
+        var mediaUploader = wp.media({
+          title: 'Select Menu File',
+          button: {
+            text: 'Use this file'
+          },
+          library: {
+            type: ['image', 'application/pdf']
+          },
+          multiple: false
+        });
+
+        mediaUploader.on('select', function() {
+          var attachment = mediaUploader.state().get('selection').first().toJSON();
+          $('#link').val(attachment.url);
+
+          // Show preview based on file type
+          var preview = '';
+          if (attachment.type === 'image') {
+            preview = '<img src="' + attachment.url + '" alt="Menu preview" />';
+          } else if (attachment.subtype === 'pdf') {
+            preview = '<div class="pdf-preview"><span class="dashicons dashicons-pdf"></span> PDF File Selected</div>';
+          }
+
+          $('#media_preview').html(preview);
+          $('#remove_file_button').show();
+        });
+
+        mediaUploader.open();
+      });
+
+      $('#remove_file_button').click(function() {
+        $('#link').val('');
+        $('#media_preview').empty();
+        $(this).hide();
+      });
+    });
+  </script>
+<?php
 }
 
 function save_menu_item_meta_box_data($post_id)

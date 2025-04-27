@@ -1,6 +1,6 @@
 .btn {
 	background: none;
-	border: 2px solid var(--sm-color-primary, #b38d51);
+	border: 2px solid var(--ast-global-color-0, #b38d51);
 	padding: 15px 20px;
 	color: white;
 	display: inline-block;
@@ -13,14 +13,14 @@
 }
 
 .btn.btn-reverted {
-	background: var(--sm-color-primary, #b38d51);
+	background: var(--ast-global-color-0, #b38d51);
 	color: black !important;
 	border: 2px solid #000;
 }
 
 .btn.btn-reverted:hover {
 	background: #000;
-	color: var(--sm-color-primary, #b38d51) !important;
+	color: var(--ast-global-color-0, #b38d51) !important;
 	cursor: pointer;
 }
 
@@ -37,13 +37,13 @@
 
 .btn.btn-icon:hover {
 	background: #000;
-	color: var(--sm-color-primary, #b38d51) !important;
-	fill: var(--sm-color-primary, #b38d51) !important;
-	border: 2px solid var(--sm-color-primary, #b38d51);
+	color: var(--ast-global-color-0, #b38d51) !important;
+	fill: var(--ast-global-color-0, #b38d51) !important;
+	border: 2px solid var(--ast-global-color-0, #b38d51);
 }
 
 .btn.btn-hover:hover {
-	background: var(--sm-color-primary, #b38d51);
+	background: var(--ast-global-color-0, #b38d51);
 	color: black !important;
 	border: 2px solid #000;
 }

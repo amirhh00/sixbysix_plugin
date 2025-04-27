@@ -17,10 +17,8 @@ footer.site-footer .c-footer__zone:not(:empty)+.c-footer__zone {
 }
 
 #newsletter_wrapper {
-	background: var(--sm-color-primary, #b38d51);
+	background: var(--ast-global-color-0, #b38d51);
 	padding: 28px 20px;
-	border-top: 53px solid black;
-	border-bottom: 3px solid black;
 }
 
 #newsletter {
