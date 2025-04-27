@@ -186,8 +186,8 @@ function sixonesix_calendar_page()
           <button class="button" type="submit">Set Event</button>
         </form>
         <script>
-          $(document).ready(function() {
-            select = $('#event').filterMultiSelect({
+          jQuery(document).ready(function() {
+            select = jQuery('#event').filterMultiSelect({
               placeholderText: "nothing selected",
               filterText: "Filter",
               selectAllText: "Select All",
