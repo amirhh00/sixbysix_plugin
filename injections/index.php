@@ -113,7 +113,7 @@ function add_button_to_footer_on_homepage()
     $style = <<<HTML
       <style>
         #newsletter_wrapper {
-          background: transparent !important;
+          background: rgba(0,0,0,0.35) !important;
         }
         #newsletter_wrapper .mix-blend-color-dodge {
           mix-blend-mode: normal !important;
