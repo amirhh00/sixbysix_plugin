@@ -30,7 +30,6 @@ footer.site-footer .c-footer__zone:not(:empty) + .c-footer__zone {
 	max-width: 1264px;
 	gap: 20px;
 	color: var(--ast-global-color-5, white);
-	font-family: "Woodford Bourne";
 	font-size: larger;
 	font-weight: 100;
 }

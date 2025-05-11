@@ -80,11 +80,18 @@ function add_button_to_footer_on_homepage()
 
   // load image
   $imageUrl = get_option('sixonesix_newsletter_image', plugin_dir_url(__FILE__) . 'images/Mexican-Pattern-Transparent.png');
-
+  $isMenusPage = is_page('menus');
+  if ($isMenusPage) {
+    $imageUrl = plugin_dir_url(__FILE__) . 'images/sixonesixmexicanrestaurantandbarchester.webp';
+  }
   $newsLetterBtnText = get_option('sixonesix_newsletter_btn_text', 'NewsLetter Signup');
   $newsLetterText = get_option('sixonesix_newsletter_text', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, obcaecati laboriosam magnam reiciendis blanditiis iure aliquid modi officiis deleniti');
   $newsLetterElement = <<<HTML
   <div class="relative" style="width: 100vw; max-width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);" id="newsletter_wrapper"> 
+    <div
+        class="absolute top-0 left-0 w-full h-full bg-contain bg-repeat bg-center opacity-10 mix-blend-color-dodge"
+        style="background-image: url('$imageUrl'); background-size:56px">
+    </div>  
     <div id="newsletter">
       <p>$newsLetterText</p>
       <a href="/newsletter" class="custom-button">
@@ -97,12 +104,32 @@ function add_button_to_footer_on_homepage()
         </div>
       </a>
     </div>
-    <div
-      class="absolute top-0 left-0 w-full h-full bg-contain bg-repeat bg-center opacity-10 mix-blend-color-dodge"
-      style="background-image: url('$imageUrl'); background-size:56px">
-  </div>
+    
   </div>
   HTML;
+
+  if ($isMenusPage) {
+    // append <style> to newsletter_wrapper
+    $style = <<<HTML
+      <style>
+        #newsletter_wrapper {
+          background: transparent !important;
+        }
+        #newsletter_wrapper .mix-blend-color-dodge {
+          mix-blend-mode: normal !important;
+          opacity: 1 !important;
+          background-size: cover !important;
+          background-position: center !important;
+          background-repeat: no-repeat !important;
+          z-index: -1 !important;
+        }
+        #newsletter_wrapper:hover .button-text:hover {
+          color: black !important;
+        }
+      </style>
+    HTML;
+    echo $style;
+  }
 
   echo <<<HTML
     <script type="text/javascript">
