@@ -70,7 +70,6 @@ footer.site-footer .c-footer__zone:not(:empty) + .c-footer__zone {
 	border: 1px solid var(--ast-global-color-5, white);
 	text-decoration: none;
 	transition: all 0.7s;
-	padding: 0px 36px;
 	text-align: center;
 	width: auto !important;
 	text-decoration: none !important;
@@ -119,7 +118,7 @@ footer.site-footer .c-footer__zone:not(:empty) + .c-footer__zone {
 	position: relative;
 	z-index: 1;
 	cursor: pointer;
-	padding: 8px 24px;
+	padding: 8px 50px;
 	text-align: center;
 	color: var(--ast-global-color-5, white);
 	text-transform: uppercase;

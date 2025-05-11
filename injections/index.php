@@ -25,7 +25,7 @@ function add_button_to_footer_on_homepage()
       <div style="display: flex;padding: 36px;flex-direction: column;gap: 12px;background: url('$popupContentBg') black;">
         <p style="color:currentColor;margin:0; font-size: calc(2rem + (56 - 32) * ((100vw - 23.4375rem) / (1920 - 375))); text-align: center">Sign up to our newsletter.</p>
         <p class="text-center" style="margin:0;">As a thank you for subscribing, you'll get early access to events and exclusive information, as well as entry into our monthly prize draw to win a £100 Six One Six gift card.</p>
-        <a href="/newsletter" class="btn btn-hover">
+        <a href="/newsletter" class="btn btn-hover focus:!text-inherit">
           ENTER NOW
         </a>
       </div>
@@ -64,9 +64,6 @@ function add_button_to_footer_on_homepage()
       <a style="padding-left:45px; padding-right:45px" href="#" class="uagb-infobox-cta-link wp-block-button__link" target="_self" rel="noopener noreferrer" onclick="return false;">
         <span class="uagb-inline-editing">$button_text</span></a>
     </div>
-    <!-- <div id="sr-res-root" class="floating_booking btn">
-      $button_text
-    </div> -->
     <script src="https://www.sevenrooms.com/widget/embed.js"></script>
     <script>
     SevenroomsWidget.init({
