@@ -48,7 +48,6 @@ function menus_shortcode($atts, $content = null)
 
   // load background image from /images/ folder
   $menu_bg_url = plugin_dir_url(__FILE__) . 'images/menus-bg-pattern.png';
-  $menu_bg_url_hover = plugin_dir_url(__FILE__) . 'images/sixonesixchesterrestaurantandbar.webp';
   $query = new WP_Query($args);
   $menu_items = [];
 
@@ -147,7 +146,6 @@ function menus_shortcode($atts, $content = null)
 
 #sixbysixMenus ul li.menu-item:hover {
     background-color: var(--ast-global-color-5, white);
-    background-image: url('{$menu_bg_url_hover}');
     cursor: pointer;
 }
 #sixbysixMenus ul li.menu-item:hover * {
