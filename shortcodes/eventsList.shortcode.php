@@ -5,9 +5,11 @@ add_shortcode('eventsl', 'display_custom_posts');
 function display_custom_posts()
 {
   // Get query parameters
-  $post_ids = isset($_GET['post_id']) ? explode(',', $_GET['post_id']) : null;
+  $post_ids = isset($_GET['ids']) ? explode(',', $_GET['ids']) : null;
   $posts_per_page = isset($_GET['posts_per_page']) ? intval($_GET['posts_per_page']) : 5;
   $pageNumber = isset($_GET['page']) ? intval($_GET['page']) : 1;
+
+  error_log(var_export($post_ids, true));
 
   // Set up query arguments
   $args = array(

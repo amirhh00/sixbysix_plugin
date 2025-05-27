@@ -5,7 +5,7 @@
  * Description:       Registers custom shortcodes and helper functions.
  * Requires at least: 6.1
  * Requires PHP:      7.0
- * Version:           1.4.0
+ * Version:           1.4.1
  * Author:            Amirhossein
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -52,7 +52,7 @@ register_activation_hook(__FILE__, 'create_event_list_page');
 
 function create_event_list_page()
 {
-  $page_title = 'Event List';
+  $page_title = 'Events';
   $page_content = '<!-- wp:shortcode -->[eventsl]<!-- /wp:shortcode -->';
 
   // Use WP_Query to check if the page exists
