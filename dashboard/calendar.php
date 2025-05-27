@@ -81,9 +81,9 @@ function sixonesix_calendar_page()
         }
       </style>
     <?php endif; ?>
-    <div style="display: flex; gap: 16px; justify-content: space-between; width: 100%;">
-      <button class="btn btn-reverted" id="prevMonth">Previous</button>
-      <div class="flex flex-col w-min mx-auto justify-center items-center">
+    <div class="max-md:!grid grid-rows-2 grid-cols-2 *:transition-all" style="display: flex; gap: 16px; justify-content: space-between; width: 100%;">
+      <button class="btn btn-reverted !text-white" id="prevMonth">Previous</button>
+      <div class="flex max-md:flex-col md:gap-2 col-span-2 w-min mx-auto max-md:order-first justify-center items-center">
         <h3 class="currentMonth !whitespace-nowrap !mb-0">
           <?php
           $monthNames = [
@@ -109,20 +109,18 @@ function sixonesix_calendar_page()
           </svg>
         </button>
       </div>
-      <button class="btn btn-reverted" id="nextMonth">Next</button>
+      <button class="btn btn-reverted !text-white md:!min-w-36 max-md:col-start-2" id="nextMonth">Next</button>
     </div>
     <br>
-    <div id="daysinweek" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; max-width: 100%; overflow-x: auto;">
-      <div style="text-align: center;">Sunday</div>
-      <div style="text-align: center;">Monday</div>
-      <div style="text-align: center;">Tuesday</div>
-      <div style="text-align: center;">Wednesday</div>
-      <div style="text-align: center;">Thursday</div>
-      <div style="text-align: center;">Friday</div>
-      <div style="text-align: center;">Saturday</div>
-    </div>
     <!-- calendar -->
     <div id="calendar">
+      <div class="day-header" style="text-align: center;">Sunday</div>
+      <div class="day-header" style="text-align: center;">Monday</div>
+      <div class="day-header" style="text-align: center;">Tuesday</div>
+      <div class="day-header" style="text-align: center;">Wednesday</div>
+      <div class="day-header" style="text-align: center;">Thursday</div>
+      <div class="day-header" style="text-align: center;">Friday</div>
+      <div class="day-header" style="text-align: center;">Saturday</div>
       <?php
       // Render the calendar days totalNumberOfGrids
       $totalNumberOfGrids = 7 * ceil((date('w', strtotime('last day of this month')) + date('d')) / 7);
@@ -364,6 +362,12 @@ function sixonesix_calendar_page()
              */
             (allEventsForMonth) => {
               calendar.innerHTML = '';
+              // Add day headers first
+              const dayHeaders = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+              dayHeaders.forEach(day => {
+                calendar.innerHTML += `<div class="day-header" style="text-align: center;">${day}</div>`;
+              });
+
               for (let i = 0; i < firstDay; i++) {
                 calendar.innerHTML += '<div class="day empty"></div>';
               }
@@ -544,6 +548,7 @@ function sixonesix_calendar_page()
     #calendar {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
+      grid-template-rows: auto 1fr;
       background-image: url('<?php echo esc_url($background_image); ?>');
       background-size: cover;
       background-clip: padding-box;
@@ -555,6 +560,15 @@ function sixonesix_calendar_page()
 
     #calendar * {
       outline: none !important;
+    }
+
+    .day-header {
+      background-color: var(--ast-global-color-0, #333) !important;
+      color: var(--ast-global-color-5, white) !important;
+      font-weight: bold;
+      padding: 10px;
+      border: 4px solid var(--ast-global-color-5, white);
+      mix-blend-mode: unset !important;
     }
 
     /* .day that has not string data-bgurl */
