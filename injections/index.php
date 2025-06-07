@@ -65,7 +65,7 @@ function add_button_to_footer_on_homepage()
 
   $sevenRoomsScript = <<<HTML
     <div class="uagb-ifb-button-wrapper wp-block-button floating_booking">
-      <a style="padding-left:45px; padding-right:45px" href="#" class="uagb-infobox-cta-link wp-block-button__link" target="_self" rel="noopener noreferrer" onclick="return false;">
+      <a style="padding-left:45px; padding-right:45px" href="#" class="whitespace-nowrap uagb-infobox-cta-link wp-block-button__link" target="_self" rel="noopener noreferrer" onclick="return false;">
         <span class="uagb-inline-editing">$button_text</span></a>
     </div>
     <script src="https://www.sevenrooms.com/widget/embed.js"></script>
@@ -81,6 +81,22 @@ function add_button_to_footer_on_homepage()
   HTML;
 
   echo $sevenRoomsScript;
+
+  // call us bar floating button
+  $callUsBtnText = get_option('sixonesix_call_us_btn_text', 'Call Us');
+  $callUsBtnLink = get_option('sixonesix_call_us_btn_link', 'tel:+441244565616'); // Default link if not set
+  $callUsBtnElement = <<<HTML
+    <div class="fixed bottom-0 hidden tablet:block w-full" id="call_us">
+      <a href="$callUsBtnLink" class="btn btn-reverted btn-icon !border-0">
+        <svg style="width:20px;height:20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/>
+        </svg>
+        <span class="call-us-text mx-2">$callUsBtnText</span>
+      </a>
+    </div>
+  </div>
+  HTML;
+  echo $callUsBtnElement;
 
   // load image
   $imageUrl = get_option('sixonesix_newsletter_image', plugin_dir_url(__FILE__) . 'images/Mexican-Pattern-Transparent.png');
@@ -159,24 +175,3 @@ function add_button_to_footer_on_homepage()
     </script>
   HTML;
 }
-
-// function addCallUsFloatingButtonOnHead()
-// {
-//   // $version = get_active_plugin_version();
-//   // wp_enqueue_style('floating_call_us', plugin_dir_url(__FILE__) . 'styles/floating_call_us.css', [], $version);
-//   $callUsBtnElement = <<<HTML
-//   <div id="call_us_wrapper">
-//     <div id="call_us">
-//       <a href="tel:+441244565616" class="btn btn-reverted btn-icon">
-//         <svg style="width:30px;height:30px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-//           <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/>
-//         </svg>
-//       </a>
-//     </div>
-//   </div>
-//   HTML;
-
-//   echo $callUsBtnElement;
-// }
-
-// add_action('wp_head', 'addCallUsFloatingButtonOnHead');
