@@ -64,9 +64,9 @@ function add_button_to_footer_on_homepage()
   // wp_enqueue_script('seven_rooms', 'https://www.sevenrooms.com/widget/embed.js');
 
   $sevenRoomsScript = <<<HTML
-    <div id="sr-res-root" class="uagb-ifb-button-wrapper wp-block-button floating_booking">
+    <div class="uagb-ifb-button-wrapper wp-block-button floating_booking">
       <a style="padding-left:45px; padding-right:45px" href="#" class="whitespace-nowrap uagb-infobox-cta-link wp-block-button__link" target="_self" rel="noopener noreferrer" onclick="return false;">
-        <span class="uagb-inline-editing">$button_text</span></a>
+        <span id="sr-res-root" class="uagb-inline-editing">$button_text</span></a>
     </div>
     <script src="https://www.sevenrooms.com/widget/embed.js"></script>
     <script>
