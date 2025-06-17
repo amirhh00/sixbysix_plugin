@@ -107,13 +107,13 @@ function sixonesix_settings_page()
           <button type="button" class="button" id="sixonesix_newsletter_bg_button">Select Image</button>
         </div>
 
-        <div style="width: 100%; margin-top: 20px; grid-column-start: 1; grid-column-end: 3;">
+        <!-- <div style="width: 100%; margin-top: 20px; grid-column-start: 1; grid-column-end: 3;">
           Call Us Bar for desktop
         </div>
         <label for="sixonesix_call_us_bar_text">Call Us Bar Text</label>
         <input placeholder="Call Us" type="text" id="sixonesix_call_us_bar_text" name="sixonesix_call_us_bar_text" value="<?php echo esc_attr(get_option('sixonesix_call_us_bar_text')); ?>" />
         <label for="sixonesix_call_us_bar_link">Call Us Bar Link</label>
-        <input placeholder="tel:1234567890" type="text" id="sixonesix_call_us_bar_link" name="sixonesix_call_us_bar_link" value="<?php echo esc_attr(get_option('sixonesix_call_us_bar_link')); ?>" />
+        <input placeholder="tel:1234567890" type="text" id="sixonesix_call_us_bar_link" name="sixonesix_call_us_bar_link" value="<?php echo esc_attr(get_option('sixonesix_call_us_bar_link')); ?>" /> -->
 
       </div>
       <?php submit_button(); ?>
@@ -133,7 +133,7 @@ function sixonesix_settings_init()
   register_setting('sixonesix_options_group', 'sixonesix_popup_button_text');
   register_setting('sixonesix_options_group', 'sixonesix_popup_button_link');
   register_setting('sixonesix_options_group', 'sixonesix_newsletter_bg');
-  register_setting('sixonesix_options_group', 'sixonesix_call_us_bar_text');
-  register_setting('sixonesix_options_group', 'sixonesix_call_us_bar_link');
+  // register_setting('sixonesix_options_group', 'sixonesix_call_us_bar_text');
+  // register_setting('sixonesix_options_group', 'sixonesix_call_us_bar_link');
 }
 add_action('admin_init', 'sixonesix_settings_init');

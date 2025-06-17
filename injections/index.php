@@ -82,21 +82,21 @@ function add_button_to_footer_on_homepage()
 
   echo $sevenRoomsScript;
 
-  // call us bar floating button
-  $callUsBtnText = get_option('sixonesix_call_us_bar_text', 'Call Us');
-  $callUsBtnLink = get_option('sixonesix_call_us_bar_link', 'tel:+441244565616'); // Default link if not set
-  $callUsBtnElement = <<<HTML
-    <div class="fixed bottom-0 tablet:hidden bg-[var(--ast-global-color-0,#b38d51)] w-full z-10" id="call_us">
-      <a href="$callUsBtnLink" class="btn btn-icon !border-0">
-        <svg style="width:20px;height:20px;fill:currentColor;color:currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-          <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/>
-        </svg>
-        <span class="call-us-text mx-2">$callUsBtnText</span>
-      </a>
-    </div>
-  </div>
-  HTML;
-  echo $callUsBtnElement;
+  // // call us bar floating button
+  // $callUsBtnText = get_option('sixonesix_call_us_bar_text', 'Call Us');
+  // $callUsBtnLink = get_option('sixonesix_call_us_bar_link', 'tel:+441244565616'); // Default link if not set
+  // $callUsBtnElement = <<<HTML
+  //   <div class="fixed bottom-0 tablet:hidden bg-[var(--ast-global-color-0,#b38d51)] w-full z-10" id="call_us">
+  //     <a href="$callUsBtnLink" class="btn btn-icon !border-0">
+  //       <svg style="width:20px;height:20px;fill:currentColor;color:currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  //         <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/>
+  //       </svg>
+  //       <span class="call-us-text mx-2">$callUsBtnText</span>
+  //     </a>
+  //   </div>
+  // </div>
+  // HTML;
+  // echo $callUsBtnElement;
 
   // load image
   $imageUrl = get_option('sixonesix_newsletter_image', plugin_dir_url(__FILE__) . 'images/Mexican-Pattern-Transparent.png');
