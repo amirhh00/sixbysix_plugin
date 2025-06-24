@@ -61,14 +61,21 @@ function add_button_to_footer_on_homepage()
 
   // Get the options for button text and link
   $button_text = get_option('sixonesix_button_text', 'Book from here'); // 'Default Text' is a fallback if the option is not set
-  // wp_enqueue_script('seven_rooms', 'https://www.sevenrooms.com/widget/embed.js');
-
+  $button_link = get_option('sixonesix_button_link', 'https://www.sevenrooms.com/explore/sixonesixchester/reservations/create/search/'); // Default link if not set
   $sevenRoomsScript = <<<HTML
     <div class="uagb-ifb-button-wrapper wp-block-button floating_booking">
-      <a id="sr-res-root" style="padding-left:45px; padding-right:45px" href="#" class="whitespace-nowrap uagb-infobox-cta-link wp-block-button__link" target="_self" rel="noopener noreferrer" onclick="return false;">
-        <span class="uagb-inline-editing">$button_text</span></a>
+      <a 
+        id="sr-res-root" 
+        style="padding-left:45px; padding-right:45px"
+        href="$button_link" 
+        class="whitespace-nowrap uagb-infobox-cta-link wp-block-button__link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="uagb-inline-editing">$button_text</span>
+      </a>
     </div>
-    <script src="https://www.sevenrooms.com/widget/embed.js"></script>
+    <!-- <script src="https://www.sevenrooms.com/widget/embed.js"></script>
     <script>
     SevenroomsWidget.init({
         venueId: "sixonesix",
@@ -77,7 +84,7 @@ function add_button_to_footer_on_homepage()
         styleButton: true, // true if you are using the SevenRooms button
         clientToken: "" //(Optional) Pass the api generated clientTokenId here
     })
-    </script>
+    </script> -->
   HTML;
 
   echo $sevenRoomsScript;

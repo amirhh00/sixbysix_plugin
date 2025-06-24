@@ -72,8 +72,13 @@ function sixonesix_settings_page()
         <label for="sixonesix_button_text">Floating reservation Text</label>
         <input placeholder="Book from here" type="text" id="sixonesix_button_text" name="sixonesix_button_text" value="<?php echo esc_attr(get_option('sixonesix_button_text')); ?>" />
 
-        <!-- <label for="sixonesix_button_link">Floating reservation Link</label>
-        <input placeholder="https://domain/reservations" type="text" id="sixonesix_button_link" name="sixonesix_button_link" value="<?php echo esc_attr(get_option('sixonesix_button_link')); ?>" /> -->
+        <label for="sixonesix_button_link">Floating reservation Link</label>
+        <input
+          placeholder="https://domain/reservations"
+          type="text"
+          id="sixonesix_button_link"
+          name="sixonesix_button_link"
+          value="<?php echo esc_attr(get_option('sixonesix_button_link', 'https://www.sevenrooms.com/explore/sixonesixchester/reservations/create/search/')); ?>" />
 
         <div style="width: 100%;margin-top: 20px; grid-column-start: 1; grid-column-end: 3;">
           NewsLetter Settings
@@ -133,7 +138,7 @@ function sixonesix_settings_init()
   register_setting('sixonesix_options_group', 'sixonesix_popup_button_text');
   register_setting('sixonesix_options_group', 'sixonesix_popup_button_link');
   register_setting('sixonesix_options_group', 'sixonesix_newsletter_bg');
-  // register_setting('sixonesix_options_group', 'sixonesix_call_us_bar_text');
-  // register_setting('sixonesix_options_group', 'sixonesix_call_us_bar_link');
+  register_setting('sixonesix_options_group', 'sixonesix_call_us_bar_text');
+  register_setting('sixonesix_options_group', 'sixonesix_call_us_bar_link');
 }
 add_action('admin_init', 'sixonesix_settings_init');
